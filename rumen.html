@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>投資入門闖關課 — 從零開始的 12 關</title>
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --line:#d9dee6;
+  --text:#16202e; --text-dim:#546175; --text-faint:#64748b;
+  --accent:#1d4ed8; --accent-soft:#e5edff;
+  --gold:#b45309; --gold-soft:#fef3c7;
+  --danger:#b91c1c; --danger-soft:#fee2e2;
+  --ok:#15803d; --ok-soft:#dcfce7;
+  --warn:#a16207; --warn-soft:#fef9c3;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 16px rgba(16,24,40,.06);
+}
+html[data-theme="dark"]{
+  --bg:#0d1117; --surface:#161b22; --surface-2:#1c232c; --line:#2b333d;
+  --text:#e6edf3; --text-dim:#a3b0c0; --text-faint:#7d8b9c;
+  --accent:#6494ff; --accent-soft:#16233d;
+  --gold:#e5a83b; --gold-soft:#3a2c11;
+  --danger:#f87171; --danger-soft:#3d1a1a;
+  --ok:#4ade80; --ok-soft:#12301d;
+  --warn:#facc15; --warn-soft:#332a0d;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.75; -webkit-text-size-adjust:100%;
+}
+a{color:var(--accent)}
+h1,h2,h3,h4{line-height:1.35; margin:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.9em;
+  background:var(--surface-2); padding:.15em .4em; border-radius:4px}
+
+/* ---------- 頂部列 ---------- */
+header{
+  position:sticky; top:0; z-index:50; background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.hbar{max-width:1180px; margin:0 auto; padding:.7rem 1rem;
+  display:flex; align-items:center; gap:.75rem}
+.brand{font-weight:800; font-size:1.02rem; letter-spacing:-.01em; white-space:nowrap}
+.brand span{color:var(--accent)}
+.hspacer{flex:1}
+.btn{
+  border:1px solid var(--line); background:var(--surface); color:var(--text);
+  border-radius:8px; padding:.4rem .7rem; font-size:.85rem; cursor:pointer;
+  font-family:inherit; white-space:nowrap;
+}
+.btn:hover{background:var(--surface-2)}
+.btn-primary{background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600}
+.btn-primary:hover{filter:brightness(1.08); background:var(--accent)}
+/* 深色模式：亮藍底配白字只有 2.9:1，改深色字（6.5:1） */
+html[data-theme="dark"] .btn-primary{color:#0d1117}
+.progwrap{height:4px; background:var(--surface-2)}
+.progbar{height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--ok));
+  transition:width .4s ease}
+
+/* ---------- 版面 ---------- */
+.shell{max-width:1180px; margin:0 auto; padding:1.5rem 1rem 5rem;
+  display:grid; grid-template-columns:250px 1fr; gap:2rem; align-items:start}
+nav.toc{position:sticky; top:70px; background:var(--surface); border:1px solid var(--line);
+  border-radius:12px; padding:.6rem; box-shadow:var(--shadow); max-height:calc(100vh - 100px); overflow:auto}
+.toc-h{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; color:var(--text-faint);
+  padding:.4rem .5rem .5rem; font-weight:700}
+.toc a{display:flex; gap:.5rem; align-items:baseline; padding:.42rem .5rem; border-radius:7px;
+  text-decoration:none; color:var(--text-dim); font-size:.87rem; line-height:1.4}
+.toc a:hover{background:var(--surface-2); color:var(--text)}
+.toc a.active{background:var(--accent-soft); color:var(--accent); font-weight:600}
+.toc a.done{color:var(--ok)}
+.toc .no{font-size:.72rem; font-weight:700; opacity:.65; min-width:1.5em}
+
+/* ---------- 關卡 ---------- */
+.stage{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  padding:1.6rem 1.7rem; margin-bottom:1.1rem; box-shadow:var(--shadow); scroll-margin-top:75px}
+.stage-tag{display:inline-block; font-size:.7rem; font-weight:800; letter-spacing:.1em;
+  color:var(--accent); background:var(--accent-soft); padding:.25rem .6rem; border-radius:999px;
+  margin-bottom:.7rem}
+.stage h2{font-size:1.4rem; letter-spacing:-.02em; margin-bottom:.5rem}
+.lede{color:var(--text-dim); font-size:.97rem; margin:0 0 1.2rem}
+.stage h3{font-size:1.03rem; margin:1.6rem 0 .5rem; padding-top:.2rem}
+.stage h4{font-size:.93rem; margin:1.1rem 0 .35rem; color:var(--text-dim)}
+.stage p{margin:.55rem 0}
+.stage ul,.stage ol{margin:.5rem 0; padding-left:1.35rem}
+.stage li{margin:.32rem 0}
+.stage li::marker{color:var(--text-faint)}
+
+/* ---------- 提示框 ---------- */
+.box{border-left:3px solid var(--line); background:var(--surface-2);
+  padding:.85rem 1rem; border-radius:0 9px 9px 0; margin:1rem 0; font-size:.93rem}
+.box > b:first-child{display:block; margin-bottom:.35rem; font-size:.95rem}
+.box.key{border-color:var(--accent); background:var(--accent-soft)}
+.box.warn{border-color:var(--warn); background:var(--warn-soft)}
+.box.danger{border-color:var(--danger); background:var(--danger-soft)}
+.box.ok{border-color:var(--ok); background:var(--ok-soft)}
+.box.gold{border-color:var(--gold); background:var(--gold-soft)}
+.box p:first-child{margin-top:0} .box p:last-child{margin-bottom:0}
+.box ul{margin:.4rem 0}
+
+/* ---------- 表格 ---------- */
+.tw{overflow-x:auto; margin:1rem 0; border:1px solid var(--line); border-radius:10px}
+table{border-collapse:collapse; width:100%; font-size:.85rem; min-width:560px}
+th,td{padding:.6rem .7rem; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+th{background:var(--surface-2); font-weight:700; font-size:.78rem; white-space:nowrap;
+  position:sticky; top:0}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface-2)}
+td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+.pill{display:inline-block; font-size:.7rem; font-weight:700; padding:.15rem .5rem;
+  border-radius:999px; white-space:nowrap}
+.p-ok{background:var(--ok-soft); color:var(--ok)}
+.p-warn{background:var(--warn-soft); color:var(--warn)}
+.p-danger{background:var(--danger-soft); color:var(--danger)}
+.p-info{background:var(--accent-soft); color:var(--accent)}
+.p-gold{background:var(--gold-soft); color:var(--gold)}
+
+/* ---------- 互動工具 ---------- */
+.tool{border:1px dashed var(--accent); background:var(--accent-soft);
+  border-radius:12px; padding:1.1rem 1.2rem; margin:1.3rem 0}
+.tool-h{font-weight:800; font-size:.92rem; margin-bottom:.85rem; color:var(--accent);
+  display:flex; align-items:center; gap:.4rem}
+.fields{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:.8rem}
+.field label{display:block; font-size:.76rem; font-weight:600; color:var(--text-dim); margin-bottom:.25rem}
+.field input,.field select{
+  width:100%; padding:.45rem .55rem; border:1px solid var(--line); border-radius:7px;
+  background:var(--surface); color:var(--text); font-family:inherit; font-size:.9rem;
+  font-variant-numeric:tabular-nums;
+}
+.field input:focus,.field select:focus{outline:2px solid var(--accent); outline-offset:-1px}
+.out{margin-top:1rem; background:var(--surface); border:1px solid var(--line);
+  border-radius:9px; padding:.9rem 1rem; font-size:.9rem}
+.out .big{font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em; display:block; margin:.15rem 0}
+.out .sub{font-size:.8rem; color:var(--text-dim)}
+.bars{margin-top:.8rem; display:flex; flex-direction:column; gap:.4rem}
+.barrow{display:grid; grid-template-columns:64px 1fr auto; gap:.5rem; align-items:center; font-size:.78rem}
+.bartrack{height:16px; background:var(--surface-2); border-radius:4px; overflow:hidden}
+.barfill{height:100%; border-radius:4px; transition:width .5s ease}
+
+/* ---------- 測驗 ---------- */
+.quiz{border:1px solid var(--line); border-radius:12px; padding:1.1rem 1.2rem;
+  margin-top:1.6rem; background:var(--surface-2)}
+.quiz-h{font-weight:800; font-size:.92rem; margin-bottom:.2rem}
+.quiz-sub{font-size:.79rem; color:var(--text-dim); margin-bottom:.9rem}
+.q{margin-bottom:1rem}
+.q-t{font-size:.9rem; font-weight:600; margin-bottom:.45rem}
+.opts{display:flex; flex-direction:column; gap:.35rem}
+.opt{display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .65rem;
+  border:1px solid var(--line); border-radius:8px; background:var(--surface);
+  cursor:pointer; font-size:.87rem; line-height:1.5}
+.opt:hover{border-color:var(--accent)}
+.opt input{margin:.35rem 0 0; flex-shrink:0; accent-color:var(--accent)}
+.opt.right{border-color:var(--ok); background:var(--ok-soft)}
+.opt.wrong{border-color:var(--danger); background:var(--danger-soft)}
+.why{font-size:.82rem; color:var(--text-dim); margin-top:.45rem; padding-left:.2rem;
+  display:none; border-left:2px solid var(--line); padding:.35rem .7rem}
+.why.show{display:block}
+.quiz-foot{display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; margin-top:.5rem}
+.score{font-size:.85rem; font-weight:700}
+
+/* ---------- 行動卡 ---------- */
+.action{border:2px solid var(--ok); border-radius:12px; padding:1rem 1.15rem;
+  margin-top:1.4rem; background:var(--ok-soft)}
+.action-h{font-weight:800; font-size:.88rem; color:var(--ok); margin-bottom:.5rem;
+  letter-spacing:.02em}
+.action ol{margin:.3rem 0 0; padding-left:1.3rem; font-size:.91rem}
+.action li{margin:.28rem 0}
+
+.locked{opacity:.5; pointer-events:none}
+.disclaimer{max-width:1180px; margin:0 auto; padding:0 1rem 3rem;
+  font-size:.78rem; color:var(--text-faint); line-height:1.7}
+.disclaimer div{border:1px solid var(--line); border-radius:10px; padding:1rem 1.2rem;
+  background:var(--surface)}
+.kbd-hint{font-size:.75rem; color:var(--text-faint); margin-top:.4rem}
+/* 側欄：常見問答連結 */
+.x-faqlink{display:flex; align-items:center; gap:.45rem; margin:.45rem .1rem .1rem; padding:.45rem .55rem; border-radius:8px;
+  border:1px dashed var(--line); color:var(--text-dim); text-decoration:none; font-size:.87rem}
+.x-faqlink:hover{color:var(--text); border-color:var(--accent)}
+/* 常見問答＋迷思卡 */
+.x-myths{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.75rem; margin:.8rem 0 1.4rem}
+.x-myth{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface); display:flex; flex-direction:column}
+.x-myth-f, .x-myth-t{padding:.7rem .85rem; font-size:.9rem; line-height:1.6}
+.x-myth-f{background:var(--danger-soft)}
+.x-myth-t{background:var(--ok-soft); border-top:1px solid var(--line); flex:1}
+.x-myth b{display:block; font-size:.78rem; letter-spacing:.04em; margin-bottom:.15rem}
+.x-myth-f b{color:var(--danger)} .x-myth-t b{color:var(--ok)}
+.x-myth a{font-weight:700; white-space:nowrap; margin-left:.3rem}
+.x-faq details{border:1px solid var(--line); border-radius:10px; background:var(--surface); margin:.55rem 0}
+.x-faq summary{cursor:pointer; padding:.75rem .95rem; font-weight:700; line-height:1.55}
+.x-faq summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:10px}
+.x-faq details[open] > summary{border-bottom:1px solid var(--line)}
+.x-faq details > div{padding:.5rem .95rem .8rem}
+.x-faq details > div p{margin:.45rem 0}
+.x-faq details > div ol{margin:.3rem 0; padding-left:1.3rem}
+/* 自己查一次：官方網站查詢步驟 */
+.x-steps{margin:.6rem 0 .3rem; padding-left:1.4rem}
+.x-steps li{margin:.4rem 0}
+.x-steps a, .x-look .out a{font-weight:700; overflow-wrap:anywhere}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr; gap:1rem; padding:1rem .8rem 4rem}
+  nav.toc{position:static; max-height:none}
+  .toc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.2rem}
+  .stage{padding:1.2rem 1.1rem; border-radius:12px}
+  .stage h2{font-size:1.22rem}
+  body{font-size:15.5px}
+  .brand{font-size:.92rem}
+}
+@media print{
+  header,nav.toc,.tool,.quiz{display:none}
+  .stage{break-inside:avoid; box-shadow:none; border:1px solid #ccc}
+  .shell{display:block; max-width:none}
+}
+/* 格線裡的內容區預設最小寬度＝內容寬度，會被 560px 的表格撐破手機版；設 0 讓表格在自己的框裡橫捲 */
+.shell>main,.shell>nav{min-width:0}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hbar">
+    <div class="brand">投資入門 <span>闖關課</span></div>
+    <div class="hspacer"></div>
+    <button class="btn" id="themeBtn" title="切換深淺色">🌗 外觀</button>
+    <button class="btn" id="resetBtn" title="清除所有進度與答案">↺ 重來</button>
+  </div>
+  <div class="progwrap"><div class="progbar" id="progbar"></div></div>
+</header>
+
+<div class="shell">
+<nav class="toc">
+  <div class="toc-h">課程進度 <span id="progText">0 / 12</span></div>
+  <div class="toc-grid" id="tocList"></div>
+  <a class="x-faqlink" href="#faq"><span aria-hidden="true">💬</span> 常見問答＋迷思</a>
+</nav>
+
+<main id="main">
+
+<!-- ══════════════════ 第 0 關 ══════════════════ -->
+<section class="stage" id="s0" data-stage="0">
+  <div class="stage-tag">第 0 關 · 動手前 · 約 6 分鐘</div>
+  <h2>先別急著開戶：把這三件事清掉</h2>
+  <p class="lede">九成新手的第一個錯誤不是「買錯標的」，是「太早開始」。這一關沒過，後面十一關全部無效。</p>
+  <p class="kbd-hint">全部 12 關約 60 分鐘（每關 3~7 分鐘），可以分好幾天闖，進度會自動記住。</p>
+  <p class="kbd-hint">這是系列第 1 門；走完之後，第 2 門是「台灣 AI 供應鏈闖關課」（結業頁有連結）。</p>
+
+  <h3>為什麼有這一關</h3>
+  <p>投資是把錢放進一個「長期會漲、但短期會亂跳」的地方。如果你在它亂跳的時候被迫把錢拿出來，你就把暫時的下跌變成了永久的虧損。所以動手之前，要先確保你<b>不會被迫賣</b>。</p>
+
+  <h3>第一件事：先還掉高利率的債</h3>
+  <p>信用卡循環利息在台灣約 <b>5% ~ 15%</b>（依發卡行與信用狀況），現金卡、信貸也常在 <b>3% ~ 16%</b> 之間。</p>
+  <div class="box key">
+    <b>這是全世界唯一「保證」的報酬</b>
+    <p>還掉一筆年利率 15% 的卡債，等於你<b>確定</b>賺到 15%，零風險、零波動、當場生效。市面上沒有任何合法投資能保證這個數字。所以順序永遠是：<b>先還高利貸，再談投資。</b></p>
+  </div>
+  <p>分界線抓在哪？一個實務上好用的門檻：</p>
+  <ul>
+    <li><b>年利率 6% 以上的債 → 先還完再投資。</b>因為股票長期年化也才 7~10%，而且不保證。</li>
+    <li><b>年利率 2% 以下的債（例如房貸）→ 可以邊還邊投資。</b>這種利率低於長期投資的期望報酬。</li>
+    <li>中間地帶（2%~6%）→ 看你自己睡不睡得著，沒有標準答案。</li>
+  </ul>
+
+  <h3>第二件事：存好緊急預備金</h3>
+  <p>這筆錢<b>不是拿來投資的</b>，是拿來讓你「不必在最糟的時候賣掉投資」的。放在隨時可動用的地方：活存、數位帳戶高利活存、或一個月期的定存。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>你的狀況</th><th>建議金額</th><th>原因</th></tr></thead>
+    <tbody>
+      <tr><td>單身、上班族、工作穩定</td><td class="num">3~6 個月生活費</td><td>失業到找到下一份工作的緩衝</td></tr>
+      <tr><td>有房貸／有小孩／單薪家庭</td><td class="num">6~12 個月生活費</td><td>固定支出砍不掉，緩衝要更厚</td></tr>
+      <tr><td>接案／自營／收入起伏大</td><td class="num">9~12 個月生活費</td><td>淡旺季落差大，且沒有資遣費</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kbd-hint">算法：把每月一定要付的錢（房租房貸、水電、伙食、保費、交通、孝親）加總，再乘上月數。不要用「收入」算，要用「必要支出」算。</p>
+
+  <h3>第三件事：確認這筆錢五年內用不到</h3>
+  <p>頭期款、明年的婚禮、小孩後年的學費 —— 這些有明確時間點的錢，<b>不要拿去投資股市</b>。因為股市不會配合你的時程表。2022 年初進場的人，要等到隔年才回本；2000 年網路泡沫高點進場的美股投資人，帳面回本花了超過 6 年。</p>
+  <div class="box warn">
+    <b>三年內要用的錢，只放這些地方</b>
+    <p>台幣定存、數位帳戶高利活存、國庫券／短天期債券。追求的是「確定拿得回來」，不是「多賺一點」。</p>
+  </div>
+
+  <div class="tool">
+    <div class="tool-h">🧮 開戶前體檢：你現在可以投資多少？</div>
+    <div class="fields">
+      <div class="field"><label>每月必要支出（元）</label><input type="number" id="c0_exp" value="40000" min="0" step="1000"></div>
+      <div class="field"><label>預備金月數</label>
+        <select id="c0_mon"><option value="3">3 個月</option><option value="6" selected>6 個月</option><option value="9">9 個月</option><option value="12">12 個月</option></select>
+      </div>
+      <div class="field"><label>目前存款（元）</label><input type="number" id="c0_cash" value="500000" min="0" step="10000"></div>
+      <div class="field"><label>高利率負債餘額（元）</label><input type="number" id="c0_debt" value="0" min="0" step="10000"></div>
+    </div>
+    <div class="out" id="c0_out"></div>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>打開網銀，把所有負債的<b>年利率</b>抄下來（不是月付金，是年利率）。</li>
+      <li>算出你的每月必要支出，決定預備金目標金額。</li>
+      <li>用上面的計算機算出「可投資金額」。如果是 0 或負數，這半年的任務就是把它變成正數 —— 這比急著買股票有價值得多。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="0"></div>
+</section>
+
+<!-- ══════════════════ 第 1 關 ══════════════════ -->
+<section class="stage" id="s1" data-stage="1">
+  <div class="stage-tag">第 1 關 · 觀念地基 · 約 6 分鐘</div>
+  <h2>投資的鐵律：沒有「穩定成長」這種東西</h2>
+  <p class="lede">你一開始問我「有哪些穩定成長的投資」。這一關要先把這個詞拆掉，因為它是新手受傷的根源。</p>
+
+  <h3>報酬和風險是同一枚硬幣</h3>
+  <p>市場不是慈善機構。別人願意付你比定存更高的報酬，是因為你替他承擔了「可能會賠、而且過程很難受」的風險。<b>報酬是風險的補償，不是免費的禮物。</b></p>
+  <p>所以真實世界只有這兩種東西，沒有第三種：</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>類型</th><th>長期報酬</th><th>過程</th><th>真正的代價</th></tr></thead>
+    <tbody>
+      <tr><td><b>保本型</b><br>定存、公債</td><td class="num">約 1.5% ~ 2.5%</td><td>幾乎不跳動</td><td><span class="pill p-warn">跑輸通膨</span> 購買力每年被慢慢吃掉</td></tr>
+      <tr><td><b>成長型</b><br>股票、股票型 ETF</td><td class="num">長期年化約 7% ~ 10%</td><td>大幅震盪</td><td><span class="pill p-danger">會腰斬</span> 歷史上多次跌掉三到五成</td></tr>
+      <tr><td><b>宣稱「穩定又高報酬」</b></td><td class="num">帳面上很漂亮</td><td>看起來很平穩</td><td><span class="pill p-danger">高機率是詐騙</span> 見第 10 關</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box danger">
+    <b>把這句話記起來</b>
+    <p>只要有人同時跟你保證「穩定」「安全」「月配 8%」「保證獲利」，這不是好機會，這是<b>詐騙的標準話術</b>。合法的金融商品在台灣依法不能保證獲利，敢保證的通常就是不合法的。</p>
+  </div>
+
+  <h3>比「年化報酬」更該看的數字：最大回撤</h3>
+  <p><b>最大回撤（Max Drawdown）</b>＝從最高點跌到最低點，總共跌掉幾成。年化報酬告訴你終點在哪，最大回撤告訴你<b>路上會有多痛</b>。決定你會不會半路下車的，是後者。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>歷史事件</th><th>台股加權指數</th><th>美股 S&amp;P 500</th><th>帳面回本大約花了</th></tr></thead>
+    <tbody>
+      <tr><td>2000 網路泡沫</td><td class="num">約 −65%</td><td class="num">約 −49%</td><td>數年（美股含息約 6~7 年）</td></tr>
+      <tr><td>2008 金融海嘯</td><td class="num">約 −58%</td><td class="num">約 −57%</td><td>數年</td></tr>
+      <tr><td>2020 疫情</td><td class="num">約 −30%</td><td class="num">約 −34%</td><td>數月（極快，屬例外）</td></tr>
+      <tr><td>2022 升息年</td><td class="num">約 −32%</td><td class="num">約 −25%</td><td>約一年多</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kbd-hint">以上為指數高低點的概算，僅供理解量級之用，不同資料來源（是否含息、取樣區間）會有出入，實際數字請自行查證。</p>
+
+  <div class="box key">
+    <b>這張表真正要你看懂的</b>
+    <p>不是「會跌」，是「<b>大約每 10 年就會發生一次跌三成以上的事</b>」。你未來的投資生涯如果有 30 年，你會遇到三次左右。這不是意外，這是入場費。</p>
+  </div>
+
+  <div class="tool">
+    <div class="tool-h">📉 下跌體感模擬器：跌 30% 是什麼感覺？</div>
+    <div class="fields">
+      <div class="field"><label>你投入的本金（元）</label><input type="number" id="c1_amt" value="1000000" min="0" step="100000"></div>
+      <div class="field"><label>假設市場下跌</label>
+        <select id="c1_dd">
+          <option value="10">−10%（常見的小回檔）</option>
+          <option value="20">−20%（進入熊市的定義）</option>
+          <option value="30" selected>−30%（2020、2022 等級）</option>
+          <option value="50">−50%（2008 等級）</option>
+          <option value="65">−65%（2000 年台股等級）</option>
+        </select>
+      </div>
+    </div>
+    <div class="out" id="c1_out"></div>
+  </div>
+
+  <h3>回本比你想的難：不對稱的數學</h3>
+  <p>跌 50% 之後，要漲多少才回本？不是 50%，是 <b>100%</b>。這個不對稱性是投資裡最重要的算術：</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>下跌</th><th>回本需要漲</th><th>白話</th></tr></thead>
+    <tbody>
+      <tr><td class="num">−10%</td><td class="num">+11.1%</td><td>還好</td></tr>
+      <tr><td class="num">−20%</td><td class="num">+25%</td><td>開始有感</td></tr>
+      <tr><td class="num">−30%</td><td class="num">+42.9%</td><td>要等好一陣子</td></tr>
+      <tr><td class="num">−50%</td><td class="num">+100%</td><td>資產要翻倍才回到原點</td></tr>
+      <tr><td class="num">−90%</td><td class="num">+900%</td><td>幾乎等於回不去了</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box warn">
+    <b>推論：避開大賠，比追求大賺重要</b>
+    <p>這就是為什麼後面的課會一直叫你「分散」「不要押單一標的」「不要用槓桿」。不是保守，是因為<b>虧損的數學對你不利</b>。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>用上面的模擬器，輸入你<b>實際打算投入的金額</b>，看跌 30% 是多少錢。</li>
+      <li>誠實問自己一句：「如果明天早上這個數字真的出現，我會不會失眠、會不會想全部賣掉？」</li>
+      <li>如果答案是「會」，那你的投入金額要調小，或股票比例要降低 —— 這個答案會在第 8 關用到，先記在心裡。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="1"></div>
+</section>
+
+<!-- ══════════════════ 第 2 關 ══════════════════ -->
+<section class="stage" id="s2" data-stage="2">
+  <div class="stage-tag">第 2 關 · 全景地圖 · 約 6 分鐘</div>
+  <h2>市面上到底有哪些投資工具？一次看完</h2>
+  <p class="lede">這是你問的「有哪些相關投資」。我把它們照<b>風險由低到高</b>排成五層。先看懂整張地圖，再決定自己要站在哪幾層。</p>
+
+  <div class="box key">
+    <b>看這張地圖的方法</b>
+    <p>不要找「最好的那一個」，那不存在。要找的是<b>「風險我扛得住、而且我看得懂」的那幾個</b>。看不懂的東西不管報酬多高都不要碰 —— 這是第 10 關會反覆講的原則。</p>
+  </div>
+
+  <h3>第 1 層：保本層（求的是「拿得回來」）</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>工具</th><th>長期年化</th><th>最大跌幅</th><th>門檻</th><th>要注意什麼</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>台幣定存</b></td><td class="num">約 1.5%~2%</td><td class="num">0%</td><td class="num">1 萬起</td>
+        <td>受存款保險保障（每人每行上限 300 萬）。<span class="pill p-warn">最大風險是通膨</span>物價年漲 2% 時，你的購買力其實在退步。</td>
+      </tr>
+      <tr>
+        <td><b>數位帳戶高利活存</b></td><td class="num">依銀行方案</td><td class="num">0%</td><td class="num">無</td>
+        <td>高利率通常只吃到某個額度上限（例如前 10 萬），超過的部分利率掉回一般水準。<b>適合放緊急預備金。</b></td>
+      </tr>
+      <tr>
+        <td><b>美元定存</b></td><td class="num">依美國利率</td><td class="num">利率 0%</td><td class="num">依銀行</td>
+        <td><span class="pill p-warn">匯率風險</span>利息賺 4%，台幣升值 5% 你還是賠。換匯還有買賣價差成本。</td>
+      </tr>
+      <tr>
+        <td><b>政府公債</b><br>台灣中央公債／美國公債</td><td class="num">約 1%~4.5%</td><td class="num">持有到期為 0%<br>中途賣可能虧</td><td class="num">直接買門檻高</td>
+        <td>「不會倒」指的是<b>持有到到期</b>。中途市場利率上升，債券價格會跌 —— 2022 年就是這樣。</td>
+      </tr>
+      <tr>
+        <td><b>儲蓄型保險</b></td><td class="num">通常低於 2.5%</td><td class="num">提前解約會虧本金</td><td class="num">年繳數萬起</td>
+        <td><span class="pill p-danger">最常被誤買</span>它是保險不是投資，前幾年解約一定虧。<b>要看「宣告利率」以外的實際 IRR（內部報酬率）。</b>綁約動輒 6~20 年。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>第 2 層：穩健層（求的是「波動小一點的成長」）</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>工具</th><th>長期年化</th><th>歷史最大跌幅</th><th>門檻</th><th>要注意什麼</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>投資級公司債 ETF</b><br>台股與美股都有</td><td class="num">約 3%~5%</td><td class="num">約 −15%~−20%</td><td class="num">一股即可</td>
+        <td>比公債多一點利息，多一點倒帳風險。<b>2022 年因升息大跌，破除了「債券很安全」的迷思。</b></td>
+      </tr>
+      <tr>
+        <td><b>美國公債 ETF</b><br>短天期／長天期差很多</td><td class="num">約 2%~4.5%</td><td class="num">長天期曾 −40% 以上</td><td class="num">一股即可</td>
+        <td><span class="pill p-warn">天期是關鍵</span>短天期（1~3 年）很穩；長天期（20 年以上）波動接近股票，新手常買錯。</td>
+      </tr>
+      <tr>
+        <td><b>全球綜合債券 ETF</b></td><td class="num">約 2%~4%</td><td class="num">約 −20%</td><td class="num">一股即可</td>
+        <td>在資產配置裡的角色是<b>「股票大跌時的減震器」</b>，不是拿來賺錢的主角。</td>
+      </tr>
+      <tr>
+        <td><b>非投資級債（高收益債）</b></td><td class="num">約 5%~7%</td><td class="num">約 −30%</td><td class="num">一股即可</td>
+        <td><span class="pill p-danger">名字騙人</span>「高收益」的正式名稱是<b>非投資等級債</b>，白話就是<b>垃圾債</b>。股市崩盤時它跟著崩，不具備避險功能。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>第 3 層：成長層（長期資產增長的主力）</h3>
+  <p>這一層是絕大多數人長期財富成長的來源，也是本課程後面主要在教的東西。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>工具</th><th>長期年化（歷史）</th><th>歷史最大跌幅</th><th>門檻</th><th>要注意什麼</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>台股市值型 ETF</b><br>追蹤台灣大盤或前 50 大</td><td class="num">約 8%~10%（含息）</td><td class="num">約 −55%</td><td class="num">零股數百元起</td>
+        <td><span class="pill p-info">新手最常見的起點</span>一次買進一整籃台灣龍頭企業。<b>但台灣單一市場高度集中在半導體，產業風險不低。</b></td>
+      </tr>
+      <tr>
+        <td><b>台股高股息 ETF</b></td><td class="num">總報酬通常不高於市值型</td><td class="num">約 −40%~−50%</td><td class="num">零股數百元起</td>
+        <td><span class="pill p-warn">台灣最大的誤會</span>配息不等於獲利，除息當天股價會扣掉。<b>第 4 關整關在講這件事。</b></td>
+      </tr>
+      <tr>
+        <td><b>美股大盤 ETF</b><br>追蹤 S&amp;P 500 或全美股</td><td class="num">長期年化約 10%（名目含息）</td><td class="num">約 −57%</td><td class="num">可買碎股</td>
+        <td>費用率極低（常見 0.03%~0.09%）。<b>要處理匯率、股利預扣稅、遺產稅</b>，見第 6、9 關。</td>
+      </tr>
+      <tr>
+        <td><b>全球股票 ETF</b><br>一檔涵蓋數十國</td><td class="num">長期年化約 7%~9%</td><td class="num">約 −55%</td><td class="num">可買碎股</td>
+        <td><span class="pill p-ok">分散程度最高</span>不用猜哪個國家會贏。缺點是漲得比純美股慢時會讓人心癢。</td>
+      </tr>
+      <tr>
+        <td><b>成熟市場／新興市場 ETF</b></td><td class="num">差異大</td><td class="num">新興市場可達 −60%</td><td class="num">可買碎股</td>
+        <td>新興市場波動更大、政治風險更高，通常只當配角。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box ok">
+    <b>如果你只想記住這一層的一句話</b>
+    <p>「<b>買一整個市場</b>」比「<b>猜哪一家公司會贏</b>」在長期上勝率高得多，而且不需要你有任何選股能力。這就是<b>指數化投資</b>，是全世界對散戶最常見的建議，也是這門課的主軸。</p>
+  </div>
+
+  <h3>第 4 層：高風險層（可以碰，但要知道自己在做什麼）</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>工具</th><th>特性</th><th>可能跌幅</th><th>要注意什麼</th></tr></thead>
+    <tbody>
+      <tr><td><b>個股</b></td><td>買單一公司</td><td class="num">可以 −100%</td>
+        <td>公司會倒、會下市。<b>再有名的公司都可能永久歸零</b>，這是 ETF 和個股最本質的差別。</td></tr>
+      <tr><td><b>產業型／主題型 ETF</b><br>半導體、AI、電動車、生技</td><td>押注單一產業</td><td class="num">−50% 以上常見</td>
+        <td><span class="pill p-warn">最容易買在高點</span>主題型 ETF 通常是「某主題已經很紅了」才發行，發行時常接近該題材的熱度高峰。</td></tr>
+      <tr><td><b>黃金</b></td><td>抗通膨、避險資產</td><td class="num">曾多年不漲</td>
+        <td>不會產生利息或股利，報酬全靠價差。1980 年高點後，名目價格花了約 28 年才回到原點。</td></tr>
+      <tr><td><b>REITs（不動產信託）</b></td><td>間接持有商用不動產</td><td class="num">約 −60%（2008）</td>
+        <td>配息較高，但對利率非常敏感，且和股市的相關性沒有想像中低。</td></tr>
+      <tr><td><b>實體房地產</b></td><td>自住兼投資</td><td class="num">區域差異極大</td>
+        <td>門檻高、流動性差（賣要數月）、有槓桿（房貸）。持有成本包含稅、修繕、空租期。</td></tr>
+      <tr><td><b>加密貨幣</b></td><td>高波動投機資產</td><td class="num">−70%~−80% 屬常態</td>
+        <td><span class="pill p-danger">不是「數位黃金」那麼單純</span>沒有現金流、無法用傳統方法估值。若要碰，<b>務必只用「全部歸零也不影響生活」的金額</b>。</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>第 5 層：紅線區（新手請直接跳過）</h3>
+  <div class="box danger">
+    <b>以下項目共同點：高槓桿、高複雜度、或根本不合法</b>
+    <ul>
+      <li><b>槓桿／反向 ETF（2 倍、−1 倍）</b> —— 內建每日重置機制，<b>設計上就不適合長期持有</b>，盤整市場會持續耗損。</li>
+      <li><b>期貨、選擇權、權證</b> —— 有到期日、有槓桿，判斷對了方向仍可能因時間而歸零。</li>
+      <li><b>外匯保證金、差價合約（CFD）</b> —— 高槓桿，多數散戶帳戶為虧損收場。</li>
+      <li><b>當沖</b> —— 扣掉手續費與稅之後，長期能穩定獲利的比例極低。</li>
+      <li><b>未上市股票、私募、「上市前最後一輪」</b> —— 台灣常見的詐騙包裝。</li>
+      <li><b>代操、老師帶單、保證獲利群組</b> —— <b>在台灣，未經核准接受委託代操是違法的。</b></li>
+    </ul>
+  </div>
+
+  <h3>整張地圖的濃縮版</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>層級</th><th>期望年化</th><th>你要付出的代價</th><th>適合放什麼錢</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill p-ok">保本層</span></td><td class="num">1.5%~2.5%</td><td>跑輸通膨</td><td>緊急預備金、3 年內要用的錢</td></tr>
+      <tr><td><span class="pill p-info">穩健層</span></td><td class="num">2%~5%</td><td>小幅波動、利率風險</td><td>降低整體波動的配角部位</td></tr>
+      <tr><td><span class="pill p-gold">成長層</span></td><td class="num">7%~10%</td><td>會跌三到五成</td><td>5~10 年以上不會動用的錢</td></tr>
+      <tr><td><span class="pill p-warn">高風險層</span></td><td class="num">無法預期</td><td>可能長期不漲或歸零</td><td>賠光也不影響生活的小比例</td></tr>
+      <tr><td><span class="pill p-danger">紅線區</span></td><td class="num">—</td><td>本金快速歸零或觸法</td><td>不放任何錢</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box gold">
+    <b>回答你最初的問題：「哪些是穩定成長的？」</b>
+    <p>最接近這個描述的，是<b>「成長層的廣泛市場指數型 ETF」＋「穩健層的債券」按比例混合，並且長期持有</b>。它<b>不是</b>穩定的 —— 過程照樣會跌三成 —— 但它是歷史上少數<b>長期、可重複、不需要預測能力</b>就能參與經濟成長的方式。</p>
+    <p style="margin-top:.5rem">這也是我能給你的最後一句「方向」。<b>具體要買哪一檔、買多少，我不能替你決定</b> —— 我不是持牌理財顧問，那是你自己的功課，或找合格顧問討論。這門課要做的是讓你有能力自己判斷。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>把這五層看過一次，圈出你<b>「完全看不懂」</b>的項目 —— 那些就是你目前絕對不該碰的。</li>
+      <li>如果你手上已經有任何投資（含保單），對照上表把它歸到某一層，寫下它的層級。</li>
+      <li>記住一句話：<b>你的報酬，來自你承受的風險，不來自你的努力或聰明。</b></li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="2"></div>
+</section>
+
+<!-- ══════════════════ 第 3 關 ══════════════════ -->
+<section class="stage" id="s3" data-stage="3">
+  <div class="stage-tag">第 3 關 · 核心工具 · 約 7 分鐘</div>
+  <h2>ETF 是什麼？為什麼新手從這裡開始</h2>
+  <p class="lede">如果這門課只能留一個工具給你，就是 ETF。這一關講清楚它的原理，以及看一檔 ETF 該看哪四個數字。</p>
+
+  <h3>用一句話理解 ETF</h3>
+  <p><b>ETF ＝ 一籃子股票，包成一張可以在股市裡買賣的憑證。</b></p>
+  <p>你買一股追蹤台灣前 50 大企業的 ETF，等於同時持有那 50 家公司的一小片。買一股追蹤 S&amp;P 500 的 ETF，等於同時持有 500 家美國大型企業的一小片。</p>
+  <div class="box key">
+    <b>它解決了新手最大的兩個難題</b>
+    <ul>
+      <li><b>不用選股</b> —— 你不需要判斷哪家公司會贏，你買的是「整個市場的平均」。</li>
+      <li><b>自動分散</b> —— 其中一家倒了，對你的影響是幾百分之一，不是全部。個股歸零是滅頂，ETF 成分股歸零只是掉一小塊。</li>
+    </ul>
+  </div>
+
+  <h3>為什麼「買平均」反而贏過大多數專業經理人</h3>
+  <p>這聽起來違反直覺，但有長期的統計支持。標普公司每年發布的 <b>SPIVA 記分卡</b>持續顯示：<b>拉長到 10 年、15 年，絕大多數主動選股的基金經理人，績效輸給他們對應的指數。</b>不同市場與年份比例不同，但「多數落後」這個結論相當一致。</p>
+  <p>原因不複雜：</p>
+  <ul>
+    <li><b>成本</b> —— 主動基金的管理費常是指數 ETF 的十倍以上，這筆錢每年都從你的報酬裡扣。</li>
+    <li><b>市場已經很有效率</b> —— 全世界最聰明的人都在同一個市場裡互相競爭，要「持續」贏過平均極為困難。</li>
+    <li><b>數學上的必然</b> —— 所有投資人的加總就是市場平均。扣掉費用後，整體必然低於平均。</li>
+  </ul>
+  <div class="box ok">
+    <b>推論</b>
+    <p>你身為一個沒有時間、沒有資料庫、沒有研究團隊的上班族，<b>試圖打敗市場的期望值是負的</b>。承認這件事，改成「參與市場」，是新手最重要的一次心態升級。</p>
+  </div>
+
+  <h3>看一檔 ETF，只要看這四個數字</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>指標</th><th>它是什麼</th><th>怎麼判斷</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>1. 總費用率</b><br>（內扣費用）</td>
+        <td>每年從基金資產裡自動扣掉的成本，<b>不會出現在你的對帳單上</b>，是直接反映在淨值裡。</td>
+        <td>越低越好。台股 ETF 常見 0.3%~1%；美股大型指數 ETF 可低到 0.03%~0.09%。<b>差 1% 在 30 年後差距非常大</b>（第 9 關會算給你看）。</td>
+      </tr>
+      <tr>
+        <td><b>2. 追蹤誤差</b></td>
+        <td>ETF 的實際表現和它宣稱要追蹤的指數，差了多少。</td>
+        <td>越小越好。它反映的是這檔 ETF 「做得準不準」。</td>
+      </tr>
+      <tr>
+        <td><b>3. 基金規模</b></td>
+        <td>這檔 ETF 總共管理多少錢。</td>
+        <td>太小有<b>清算下市</b>風險。規模長期萎縮的 ETF 要避開。</td>
+      </tr>
+      <tr>
+        <td><b>4. 成交量與折溢價</b></td>
+        <td>好不好買賣；市價和淨值差多少。</td>
+        <td>成交量太低會買貴賣便宜。<span class="pill p-warn">溢價過高時不要追</span>代表你付的價格高於它實際的資產價值。</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <h3>🔎 自己查一次：把四個數字找出來</h3>
+  <p>這四個數字不用買付費資料，官方網站就查得到。以台股 ETF 為例：</p>
+  <div class="tool x-look">
+    <div class="tool-h">🔎 輸入 ETF 代號，打開證交所的資料頁</div>
+    <div class="fields">
+      <div class="field"><label for="lookEtf">ETF 代號（例如 0050）</label><input type="text" id="lookEtf" maxlength="6" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="0050"></div>
+    </div>
+    <div class="out" id="lookEtfOut" aria-live="polite">輸入代號後，這裡會出現證交所「ETF e添富」那一檔的連結。</div>
+  </div>
+  <ol class="x-steps">
+    <li><b>規模、成交量、折溢價</b>：證交所「ETF e添富」的單一 ETF 頁，有資產規模、成交量、淨值與折溢價，還有配息狀況。想一次比很多檔，用它的 <a href="https://www.twse.com.tw/zh/ETFortune/products" target="_blank" rel="noopener noreferrer">投資篩選器</a>，列表裡就有每一檔的資產規模和日均成交值。</li>
+    <li><b>總費用率、追蹤誤差</b>：e添富頁面上的基金全名，開頭就是發行投信（例如「元大」台灣卓越50）。到那家投信的官網搜尋代號，看「基金月報」或「公開說明書」。資料上常同時有「追蹤差距」（一年下來比指數多或少幾 %）和「追蹤誤差」（差距穩不穩），兩個都是越接近 0 越好，都抄下來。</li>
+    <li><b>前十大持股</b>：同樣在投信官網的 ETF 頁或基金月報裡。</li>
+  </ol>
+  <p class="kbd-hint">輸入代號打開後如果回到 e添富首頁，可能是代號打錯或還沒打完，也可能是在櫃買中心上櫃的 ETF（不少債券 ETF 是），這時直接到發行投信官網查最方便。美股 ETF 可查發行商官網（如 Vanguard、iShares、SPDR）的 fund page，費用率、持股、規模都在同一頁。</p>
+
+  <h3>ETF 也有雷區</h3>
+  <div class="box danger">
+    <b>不是掛著 ETF 三個字就安全</b>
+    <ul>
+      <li><b>槓桿／反向 ETF</b>（名字裡有「正 2」「反 1」）—— 每日重置，長期持有會耗損，不是給你放著的。</li>
+      <li><b>期貨型 ETF</b>（原油、天然氣等）—— 有轉倉成本，長期可能持續失血。</li>
+      <li><b>過度集中的主題型 ETF</b> —— 名字很潮，但可能 30% 押在同一家公司，分散效果有限。</li>
+      <li><b>費用率偏高的 ETF</b> —— 內扣 1% 以上的「指數」ETF，要問自己：我付這筆錢買到了什麼？</li>
+    </ul>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>隨便找一檔你聽過的 ETF，照上面「自己查一次」的步驟，把<b>四個數字</b>找出來抄下來。找不到就代表你還不該買它。</li>
+      <li>順手看一下它的<b>前十大持股</b>，看看你買的到底是什麼。很多人買了半年還不知道自己持有什麼。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="3"></div>
+</section>
+
+<!-- ══════════════════ 第 4 關 ══════════════════ -->
+<section class="stage" id="s4" data-stage="4">
+  <div class="stage-tag">第 4 關 · 破除迷思 · 約 5 分鐘</div>
+  <h2>市值型 vs 高股息：台灣人最大的一個誤會</h2>
+  <p class="lede">「這檔月月配息 8%，等於每個月都有薪水」—— 這句話裡藏著一個會讓你少賺很多的誤解。這一關把它講透。</p>
+
+  <h3>核心事實：配息不是額外送你的錢</h3>
+  <p>公司或基金配息時，會進行<b>「除息」</b>：配多少，股價就先扣掉多少。</p>
+  <div class="box key">
+    <b>用數字看最清楚</b>
+    <p>假設你持有一檔 ETF，股價 <b>100 元</b>，你有 1000 股，總資產 <b>100,000 元</b>。</p>
+    <p>它配息 5 元。除息當天，股價自動變成 <b>95 元</b>。</p>
+    <p>結果：股票市值 95,000 元 ＋ 現金 5,000 元 ＝ <b>還是 100,000 元</b>。</p>
+    <p style="margin-top:.5rem"><b>你的資產一毛都沒有增加。</b>只是從「股票」變成「股票＋現金」，等於把錢從左口袋換到右口袋。</p>
+  </div>
+  <p>那什麼時候才真的賺到？<b>要等股價漲回 100 元（填息）</b>，這時你才真正多了 5,000 元。而<b>填息不保證會發生，也不保證多久發生</b>。有些標的長期「配息但不填息」，那叫做<b>配到你自己的本金</b>。</p>
+
+  <h3>你真正該看的數字：總報酬</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>你常看到的數字</th><th>它的問題</th><th>該改看什麼</th></tr></thead>
+    <tbody>
+      <tr><td><b>殖利率 8%</b></td><td>只算配息，沒算股價漲跌。配 8% 但股價跌 10%，你是虧的。</td><td><b>總報酬</b>＝股價漲跌 ＋ 配息（並假設股息再投入）</td></tr>
+      <tr><td><b>月月配</b></td><td>配息頻率不影響總報酬，只影響現金流節奏。配越勤，稅務和交易成本反而可能越多。</td><td>同上，看總報酬</td></tr>
+      <tr><td><b>過去一年配了 X 元</b></td><td>過去的配息不保證未來，配息政策隨時會變。</td><td>看長期總報酬與配息穩定度</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kbd-hint">怎麼查總報酬：看「含息報酬率」或「報酬指數」（例如台股要看<b>加權報酬指數</b>，不是我們每天在新聞上看到的加權指數 —— 後者不含息）。</p>
+
+  <h3>兩者的實際差別</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th></th><th>市值型 ETF</th><th>高股息 ETF</th></tr></thead>
+    <tbody>
+      <tr><td><b>選股邏輯</b></td><td>照公司市值大小配置，市場漲什麼就持有什麼</td><td>照「預測或過去的高配息」篩選</td></tr>
+      <tr><td><b>長期總報酬</b></td><td>貼近整體市場</td><td>歷史上多數期間<b>不高於</b>市值型，且可能錯過高成長股</td></tr>
+      <tr><td><b>現金流</b></td><td>配息較少，成長留在股價裡</td><td>現金流明顯，體感較好</td></tr>
+      <tr><td><b>稅務</b></td><td>配息少 → 股利所得稅與二代健保補充保費少</td><td><span class="pill p-warn">配息多 → 稅務成本高</span>見第 9 關</td></tr>
+      <tr><td><b>心理效果</b></td><td>大跌時只看得到虧損，較難撐</td><td>大跌時仍有配息入帳，較容易抱得住</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box gold">
+    <b>公允地說：高股息不是垃圾</b>
+    <p>如果<b>「每個月看到現金入帳」能讓你在市場大跌時不賣掉</b>，那它替你解決的是最難的問題 —— 人性。<b>能長期抱住的次佳方案，勝過抱不住的最佳方案。</b></p>
+    <p style="margin-top:.5rem">但你要在<b>知道自己付出什麼代價</b>的前提下選它，而不是因為誤以為「配息＝多賺」。這一關的目的只是讓你看懂代價是什麼。</p>
+  </div>
+
+  <div class="box danger">
+    <b>絕對不要做的一件事：為了配息去借錢或加碼</b>
+    <p>「借錢買高股息，用配息還利息」這種操作在台灣很常見，而且非常危險。股價下跌時你要同時承受本金虧損和利息壓力，這是槓桿，不是穩定現金流。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>找一檔你有興趣的高股息 ETF，查它<b>近 3 年或 5 年的「含息總報酬」</b>，和同期市值型 ETF 比較。</li>
+      <li>如果你手上已經有高股息商品，檢查它<b>除息後有沒有填息</b>、花了多久。</li>
+      <li>問自己一句話：「我需要的是<b>現金流</b>，還是<b>資產成長</b>？」這兩個答案會導向不同的選擇，而且都是合理的。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="4"></div>
+</section>
+
+<!-- ══════════════════ 第 5 關 ══════════════════ -->
+<section class="stage" id="s5" data-stage="5">
+  <div class="stage-tag">第 5 關 · 實戰 · 約 4 分鐘</div>
+  <h2>台股開戶：帶什麼、選誰、注意什麼</h2>
+  <p class="lede">從這一關開始動手。台股是新手最好的練習場：台幣計價、沒有匯率問題、開戶最簡單。</p>
+
+  <h3>開戶要準備什麼</h3>
+  <ul>
+    <li><b>雙證件</b> —— 身分證 ＋ 健保卡（或駕照）。</li>
+    <li><b>印章</b> —— 部分券商臨櫃仍需要，線上開戶多半免。</li>
+    <li><b>銀行存摺</b> —— 用來當<b>交割戶</b>（買賣股票的錢從這裡進出）。</li>
+    <li>未滿 18 歲需法定代理人陪同辦理。</li>
+  </ul>
+  <div class="box key">
+    <b>你會同時開到兩個帳戶</b>
+    <ul>
+      <li><b>證券帳戶</b> —— 存你的股票（實際上是集保帳戶）。</li>
+      <li><b>交割銀行帳戶</b> —— 存你的錢。買進時從這裡扣款，賣出時錢匯進來。</li>
+    </ul>
+    <p style="margin-top:.4rem">很多新手第一次下單失敗，原因就是<b>交割戶裡錢不夠</b>。</p>
+  </div>
+
+  <h3>券商怎麼選？只看四件事</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>比較項目</th><th>為什麼重要</th><th>怎麼問</th></tr></thead>
+    <tbody>
+      <tr><td><b>1. 電子下單手續費折扣</b></td>
+        <td>台股手續費公定價 <b>0.1425%</b>，券商會給折扣。長期下來差很多。</td>
+        <td>直接問：「電子下單幾折？<b>有沒有低消？</b>」折扣常見範圍差距頗大，值得比較。</td></tr>
+      <tr><td><b>2. 手續費低消</b></td>
+        <td><span class="pill p-warn">小額投資人最痛的一點</span>很多券商單筆最低收 20 元。你買 1000 元的零股，手續費 20 元＝<b>2%</b>，等於一開始就先虧 2%。</td>
+        <td>問：「零股／定期定額的<b>最低手續費是多少</b>？有沒有 1 元低消的方案？」</td></tr>
+      <tr><td><b>3. 定期定額功能</b></td>
+        <td>能不能設定每月自動扣款買進、可選標的多不多、扣款日期能不能自選。</td>
+        <td>問：「定期定額<b>可以買哪些 ETF</b>？最低多少錢起扣？」（常見 1000~3000 元起）</td></tr>
+      <tr><td><b>4. APP 好不好用</b></td>
+        <td>你每個月都要用它。難用的 APP 會讓你不想執行紀律。</td>
+        <td>去 App Store／Play 商店看評分和最近評論。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box warn">
+    <b>不要用這些理由選券商</b>
+    <p>「營業員是朋友介紹的」「送好禮」「開戶抽獎」。這些是一次性的，而手續費和低消是<b>你每一筆都要付的</b>。也不要因為營業員推薦就買他推的標的 —— 他有業績壓力，那不是中立建議。</p>
+  </div>
+
+  <h3>開戶流程（線上開戶約 10~20 分鐘）</h3>
+  <ol>
+    <li>下載券商 APP → 選「線上開戶」。</li>
+    <li>拍攝雙證件正反面、人臉辨識。</li>
+    <li>填寫基本資料與<b>風險屬性問卷</b>（誠實填，這會影響你能買的商品）。</li>
+    <li>選擇交割銀行 —— 可以線上一併新開，也可以綁定既有帳戶。</li>
+    <li>設定電子憑證與下單密碼。</li>
+    <li>等待審核（通常 1~3 個工作天）→ 收到通知即可下單。</li>
+  </ol>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>挑 3 家券商，把「電子下單折扣」「手續費低消」「定期定額最低金額」抄成一張比較表。</li>
+      <li>選一家開戶。<b>不用糾結太久</b>，之後不滿意隨時可以再開別家，開戶不用錢也不影響信用。</li>
+      <li>開好之後，先<b>不要下單</b>。把 APP 打開逛一逛，找到「下單」「庫存」「對帳單」三個頁面在哪裡。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="5"></div>
+</section>
+
+<!-- ══════════════════ 第 6 關 ══════════════════ -->
+<section class="stage" id="s6" data-stage="6">
+  <div class="stage-tag">第 6 關 · 實戰 · 約 3 分鐘</div>
+  <h2>美股怎麼買：複委託 vs 海外券商</h2>
+  <p class="lede">你說台股美股都想學。買美股有兩條路，各有明確的優缺點，這一關幫你看懂差在哪。</p>
+
+  <h3>兩條路的對照</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th></th><th>複委託（透過台灣券商）</th><th>海外券商（直接開美國帳戶）</th></tr></thead>
+    <tbody>
+      <tr><td><b>怎麼運作</b></td><td>你下單給台灣券商，它再幫你到海外市場買</td><td>你自己在海外券商開戶、匯錢過去、直接下單</td></tr>
+      <tr><td><b>開戶難度</b></td><td><span class="pill p-ok">簡單</span>台灣券商臨櫃或線上即可</td><td><span class="pill p-warn">中等</span>全英文流程、要填 W-8BEN 稅務表</td></tr>
+      <tr><td><b>手續費</b></td><td><span class="pill p-warn">較高</span>常見有<b>單筆最低收費</b>，小額買很不划算</td><td><span class="pill p-ok">低</span>不少券商美股交易零手續費</td></tr>
+      <tr><td><b>資金進出</b></td><td>台幣或美元從國內帳戶直接扣，方便</td><td>要<b>國際電匯</b>，每次有匯費（雙邊都可能收）</td></tr>
+      <tr><td><b>語言與客服</b></td><td><span class="pill p-ok">中文</span>出事有人可以找</td><td>英文為主，時差問題</td></tr>
+      <tr><td><b>可買標的</b></td><td>券商上架的才能買，選擇較少</td><td>幾乎所有美股與 ETF</td></tr>
+      <tr><td><b>資產保障</b></td><td>受台灣法規與該券商海外架構保障</td><td>多數美國券商有 SIPC 保障（保障券商倒閉，<b>不保障你投資虧損</b>）</td></tr>
+      <tr><td><b>遺產稅風險</b></td><td><span class="pill p-ok">相對單純</span>透過複委託持有的架構較好處理</td><td><span class="pill p-danger">重要</span>非美國人直接持有美國資產，超過免稅額（一般認知約 6 萬美元）部分可能面臨美國遺產稅，稅率可達 <b>40%</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="box key">
+    <b>怎麼判斷自己適合哪一條</b>
+    <ul>
+      <li><b>剛開始、金額不大、想少一點麻煩</b> → 複委託通常比較合理。用定期定額的方案可以避開單筆低消的問題。</li>
+      <li><b>金額較大、看得懂英文、願意處理稅務表格</b> → 海外券商的成本優勢才會真正發揮出來。</li>
+      <li><b>遺產稅是真議題</b>，不是嚇唬人。如果你打算長期在海外券商累積到一定規模，這件事要提早了解，可能需要諮詢會計師。</li>
+    </ul>
+  </div>
+
+  <h3>另一條常被忽略的路：在台股市場買「投資海外的 ETF」</h3>
+  <p>台灣證交所也有掛牌追蹤美國或全球市場的 ETF，用<b>台幣</b>、在<b>台股帳戶</b>就能買。</p>
+  <div class="tw">
+  <table>
+    <thead><tr><th>優點</th><th>缺點</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><ul style="margin:0"><li>台幣交易，不用換匯</li><li>用你已經開好的台股帳戶</li><li>可用定期定額</li><li>沒有美國遺產稅問題</li></ul></td>
+        <td><ul style="margin:0"><li>內扣費用通常<b>高於</b>美國原生 ETF</li><li>仍有匯率風險（只是不用自己換匯）</li><li>可能有折溢價，交易時段與美股不同步</li><li>選擇比美股少很多</li></ul></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kbd-hint">這條路對「只想簡單參與全球市場、金額不大」的人常常是最省事的折衷方案。缺點是長期下來費用率的差距會累積，記得回去看第 3 關的四個數字。</p>
+
+  <div class="box warn">
+    <b>匯率是真實成本，別忽略</b>
+    <p>換匯有<b>買賣價差</b>（銀行的現金匯率和即期匯率不同），來回一趟就是成本。而且台幣升值時，你的美元資產換回台幣會縮水。長期投資的人通常選擇<b>不預測匯率</b>，但你要知道這個風險存在。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>先<b>不要開海外券商</b>。第一年在台股練手就好，把流程跑順比省那點手續費重要。</li>
+      <li>如果你想現在就參與美股，去看你的台股券商<b>有沒有複委託定期定額</b>，以及在台灣掛牌的海外市場 ETF 有哪些。</li>
+      <li>把「美國遺產稅」這四個字記下來。將來金額變大時，這是你要回來處理的功課。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="6"></div>
+</section>
+
+<!-- ══════════════════ 第 7 關 ══════════════════ -->
+<section class="stage" id="s7" data-stage="7">
+  <div class="stage-tag">第 7 關 · 實戰 · 約 4 分鐘</div>
+  <h2>第一筆下單：每個按鈕代表什麼</h2>
+  <p class="lede">帳戶開好了，這一關教你把錢真的放進去 —— 而且是用最不容易出錯的方式。</p>
+
+  <h3>整股 vs 零股</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th></th><th>整股（一張＝1000 股）</th><th>零股（1~999 股）</th></tr></thead>
+    <tbody>
+      <tr><td><b>一次要多少錢</b></td><td>股價 × 1000。股價 50 元＝<b>5 萬</b></td><td>股價 × 你要的股數。可以只買 1 股</td></tr>
+      <tr><td><b>交易時段</b></td><td>盤中連續交易</td><td>盤中零股交易＋盤後零股交易（撮合方式與整股不同）</td></tr>
+      <tr><td><b>成交難易</b></td><td>流動性好</td><td>冷門標的可能不易成交</td></tr>
+      <tr><td><b>適合誰</b></td><td>資金較充裕</td><td><span class="pill p-ok">新手起步</span>幾百元就能開始</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>限價 vs 市價：新手一律用限價</h3>
+  <div class="box danger">
+    <b>這一條請務必照做</b>
+    <p><b>市價單</b>＝「不管多少錢，馬上幫我買到」。在流動性差或行情劇烈時，你可能成交在一個離譜的價格。</p>
+    <p><b>限價單</b>＝「最多只出到 X 元，超過就不要買」。你完全掌控成交價，代價只是可能買不到 —— 而<b>買不到從來不是問題，買貴才是</b>。</p>
+  </div>
+
+  <h3>定期定額 vs 單筆進場</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th></th><th>定期定額</th><th>單筆投入</th></tr></thead>
+    <tbody>
+      <tr><td><b>做法</b></td><td>每月固定日期扣固定金額</td><td>一次把錢投進去</td></tr>
+      <tr><td><b>數學上</b></td><td>期望報酬略低（因為錢平均在場內的時間較短）</td><td><span class="pill p-info">期望報酬略高</span>市場長期向上，越早進場越久</td></tr>
+      <tr><td><b>心理上</b></td><td><span class="pill p-ok">好執行太多了</span>不用擇時、不會後悔、自動化</td><td>如果買完就崩盤，很多人會從此不敢再投資</td></tr>
+      <tr><td><b>適合</b></td><td><b>新手、每月有固定薪水的人</b></td><td>已有一筆閒錢、且心臟夠強</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box ok">
+    <b>給新手的建議做法</b>
+    <p>用<b>定期定額</b>開始。它在數學上略遜於單筆，但它<b>大幅提高你能堅持下去的機率</b>，而「堅持下去」才是這整件事真正的勝負手。</p>
+  </div>
+
+  <h3>你的第一筆，這樣下</h3>
+  <ol>
+    <li>確認<b>交割戶裡有錢</b>（買進後第二個營業日早上會扣款，也就是 T+2）。</li>
+    <li>打開 APP → 下單頁 → 輸入股票代號。</li>
+    <li>選<b>「買進」</b> → 選<b>「零股」</b>（金額小的話）→ 選<b>「限價」</b>。</li>
+    <li>價格填在目前成交價附近，股數填一個<b>小到你完全不在意的數字</b>（例如 1 股）。</li>
+    <li>送出 → 到「委託查詢」看有沒有成交 → 到「庫存」確認持股出現。</li>
+  </ol>
+  <div class="box key">
+    <b>第一筆的目的不是賺錢，是「跑通流程」</b>
+    <p>用 1 股、幾百塊，把「下單 → 成交 → 扣款 → 出現在庫存」整條路走一遍。這一趟走完，你對系統的恐懼會消失八成。真正的部位第二個月再開始建立。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>下一筆<b>零股、限價、1 股</b>的測試單。</li>
+      <li>隔兩天確認交割戶有被扣款、庫存有出現這筆持股。</li>
+      <li>去 APP 裡找到<b>「定期定額」</b>設定頁，先看清楚可選標的與最低金額，<b>但先不要設定</b> —— 等第 8 關決定好配置比例再設。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="7"></div>
+</section>
+
+<!-- ══════════════════ 第 8 關 ══════════════════ -->
+<section class="stage" id="s8" data-stage="8">
+  <div class="stage-tag">第 8 關 · 配置 · 約 5 分鐘</div>
+  <h2>股債比：找到你晚上睡得著的比例</h2>
+  <p class="lede">這是整門課裡對你長期結果影響最大的一個決定，比「買哪一檔」重要得多。</p>
+
+  <h3>為什麼要配債券</h3>
+  <p>債券在配置裡的角色<b>不是拿來賺錢</b>，是<b>減震器</b>。股票大跌時，債券通常跌得比較少（有時甚至上漲），讓你的整體帳面難看程度降低，你才抱得住。</p>
+  <div class="box key">
+    <b>股債比怎麼讀</b>
+    <p>「<b>80/20</b>」＝ 80% 放股票類、20% 放債券類。股票比例越高，長期報酬期望越高，但過程越痛。</p>
+  </div>
+  <div class="tw">
+  <table>
+    <thead><tr><th>股 / 債</th><th>長期報酬期望</th><th>大空頭時大約會跌</th><th>適合的心理素質</th></tr></thead>
+    <tbody>
+      <tr><td class="num">100 / 0</td><td class="num">最高</td><td class="num">−50% 以上</td><td>能完全無視帳面數字的人</td></tr>
+      <tr><td class="num">80 / 20</td><td class="num">高</td><td class="num">約 −40%</td><td>年輕、收入穩定、能接受大波動</td></tr>
+      <tr><td class="num">60 / 40</td><td class="num">中高</td><td class="num">約 −30%</td><td><span class="pill p-info">經典配置</span>多數人的合理起點</td></tr>
+      <tr><td class="num">40 / 60</td><td class="num">中</td><td class="num">約 −20%</td><td>接近退休、或波動忍受度低</td></tr>
+      <tr><td class="num">20 / 80</td><td class="num">低</td><td class="num">約 −10%</td><td>已退休、以保本為主</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="kbd-hint">跌幅為歷史情境下的概略量級，僅供理解相對關係，實際結果會因持有標的、期間、幣別而不同。</p>
+
+  <h3>老規則「100 減年齡」的問題</h3>
+  <p>常聽到「股票比例＝100 減去你的年齡」。40 歲就是 60% 股票。這個規則<b>方便但太粗糙</b>，因為它只看年齡，忽略了三件更重要的事：</p>
+  <ul>
+    <li><b>你的收入穩不穩</b> —— 公務員和接案者，同樣 40 歲，能承受的風險差很多。</li>
+    <li><b>這筆錢什麼時候要用</b> —— 30 歲但兩年後要買房的錢，不該有 70% 在股票。</li>
+    <li><b>你實際的心理承受度</b> —— 這是最常被低估的一項。</li>
+  </ul>
+
+  <div class="tool">
+    <div class="tool-h">🧭 風險承受度自測（3 題，30 秒）</div>
+    <div id="riskQuiz"></div>
+    <div class="out" id="risk_out" style="display:none"></div>
+  </div>
+
+  <div class="box warn">
+    <b>測驗結果只是起點，不是命令</b>
+    <p>真正的檢驗發生在下一次真實崩盤時。<b>如果你發現自己開始每天看盤、睡不好、想全部賣掉 —— 那代表你的股票比例太高了</b>，那時降低比例是理性的調整，不是認輸。</p>
+  </div>
+
+  <h3>把配置寫下來（這步不能省）</h3>
+  <div class="box ok">
+    <b>你的「投資聲明書」只要三句話</b>
+    <ol style="margin:.4rem 0 0">
+      <li>我的股債比是 <b>___ / ___</b>，因為 <b>___________</b>。</li>
+      <li>我每月投入 <b>_____ 元</b>，扣款日 <b>__ 號</b>。</li>
+      <li>我只在下列情況調整：<b>每年再平衡一次</b>，或<b>人生重大變化</b>（結婚、生子、退休、失業）。<b>市場漲跌不算變化。</b></li>
+    </ol>
+  </div>
+  <p>寫下來的用途是：<b>三年後市場崩盤、你腦袋一片空白的那天，這張紙會替當時冷靜的你，跟慌張的你說話。</b></p>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>做完上面的自測，得到一個起始比例。</li>
+      <li>把上面三句話<b>實際寫在紙上或備忘錄</b>，填完空格。</li>
+      <li>回到第 7 關提到的定期定額頁面，<b>現在可以去設定了</b>。金額用第 0 關算出來的可投資金額。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="8"></div>
+</section>
+
+<!-- ══════════════════ 第 9 關 ══════════════════ -->
+<section class="stage" id="s9" data-stage="9">
+  <div class="stage-tag">第 9 關 · 成本 · 約 5 分鐘</div>
+  <h2>吃掉你報酬的沉默殺手：費用與稅</h2>
+  <p class="lede">報酬不確定，但成本是確定的。這是投資裡少數你能百分之百控制的變數。</p>
+
+  <h3>台股要付的錢</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>項目</th><th>費率</th><th>什麼時候收</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td><b>手續費</b></td><td class="num">0.1425%</td><td>買進、賣出各收一次</td><td>券商會給電子下單折扣。<b>注意單筆最低收費</b>（常見 20 元）。</td></tr>
+      <tr><td><b>證券交易稅</b></td><td class="num">股票 0.3%<br>ETF 0.1%</td><td><b>只有賣出時收</b></td><td>ETF 稅率較低，這是它相對於個股的一個小優勢。</td></tr>
+      <tr><td><b>股利所得稅</b></td><td class="num">兩種擇一</td><td>報稅時</td><td>①合併計稅（股利可抵減稅額，有上限）②單一稅率分開計稅。<b>哪個划算要看你的所得級距</b>。</td></tr>
+      <tr><td><b>二代健保補充保費</b></td><td class="num">單筆股利達門檻時課徵</td><td>配息時直接扣</td><td>費率與門檻政府會調整，<b>請以健保署當年度公告為準</b>。這是高股息商品的隱藏成本。</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="box warn">
+    <b>稅制會變動</b>
+    <p>上表是幫你建立「有哪些成本」的概念。<b>實際費率與門檻請以財政部、健保署當年度公告為準</b>，或直接問你的券商／會計師。不要拿這張表去報稅。</p>
+  </div>
+
+  <h3>美股要付的錢</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>項目</th><th>大概是多少</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td><b>交易手續費</b></td><td>海外券商常見零手續費；複委託較高且有低消</td><td>小額買賣時，低消的殺傷力遠大於費率</td></tr>
+      <tr><td><b>換匯成本</b></td><td>銀行買賣價差</td><td>來回都有，金額大時可比較各家匯率</td></tr>
+      <tr><td><b>國際電匯費</b></td><td>每筆數百至上千元（雙邊可能都收）</td><td>所以海外券商<b>不適合每月小額匯款</b></td></tr>
+      <tr><td><b>股利預扣稅</b></td><td class="num">美股股利通常預扣 30%</td><td>非美國居民適用。<b>這讓「美股高股息」策略吸引力大減。</b></td></tr>
+      <tr><td><b>海外所得</b></td><td>可能計入基本所得額</td><td>台灣有海外所得課稅規定與免稅額門檻，金額大時要留意</td></tr>
+      <tr><td><b>美國遺產稅</b></td><td class="num">超過免稅額部分稅率可達 40%</td><td>見第 6 關。長期大額持有者的重要議題</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>看看 1% 的費用差，30 年後是多少錢</h3>
+  <div class="tool">
+    <div class="tool-h">💸 費用侵蝕計算機</div>
+    <div class="fields">
+      <div class="field"><label>每月投入（元）</label><input type="number" id="c9_m" value="10000" min="0" step="1000"></div>
+      <div class="field"><label>投資年數</label><input type="number" id="c9_y" value="30" min="1" max="60"></div>
+      <div class="field"><label>市場年化報酬（%）</label><input type="number" id="c9_r" value="8" min="0" max="20" step="0.5"></div>
+      <div class="field"><label>方案 A 內扣費用（%）</label><input type="number" id="c9_f1" value="0.1" min="0" max="5" step="0.05"></div>
+      <div class="field"><label>方案 B 內扣費用（%）</label><input type="number" id="c9_f2" value="1.1" min="0" max="5" step="0.05"></div>
+    </div>
+    <div class="out" id="c9_out"></div>
+  </div>
+
+  <div class="box key">
+    <b>為什麼費用這麼可怕</b>
+    <p>因為它<b>每年都收，而且是從本金＋獲利一起收</b>。你少賺的那 1%，本來還會繼續複利。這就是為什麼第 3 關要你查「總費用率」—— 那個數字是你唯一能確定會拿回來的報酬。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>用上面的計算機，填入你自己的金額，看看 1% 的差距對你是多少錢。</li>
+      <li>查一下你現有投資（包含保單、基金）的<b>內扣費用</b>。基金常見 1.5%~2.5%，比 ETF 高一個量級。</li>
+      <li>把券商手續費折扣談好（或換一家）。這是唯一「不用承擔任何風險就能提高報酬」的動作。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="9"></div>
+</section>
+
+<!-- ══════════════════ 第 10 關 ══════════════════ -->
+<section class="stage" id="s10" data-stage="10">
+  <div class="stage-tag">第 10 關 · 防守 · 約 4 分鐘</div>
+  <h2>詐騙辨識：這關沒過，前面全白學</h2>
+  <p class="lede">投資詐騙在台灣的規模非常龐大，受害者橫跨各年齡層與教育程度。認得出來，比賺得多重要。</p>
+
+  <div class="box danger">
+    <b>三個訊號，出現任何一個就直接結束對話</b>
+    <ol style="margin:.4rem 0 0">
+      <li><b>保證獲利／保證不賠。</b>在台灣，合法金融機構<b>依法不得保證獲利</b>。敢保證的，就是不合法的。</li>
+      <li><b>要你把錢匯到「個人帳戶」或非合法金融機構的帳戶。</b>合法投資的錢一定是進你自己的交割戶或券商的信託專戶。</li>
+      <li><b>急、限時、名額有限、今天不決定就沒了。</b>製造時間壓力是為了不讓你查證。真正的好投資不會急著逼你。</li>
+    </ol>
+  </div>
+
+  <h3>台灣常見的詐騙手法</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>手法</th><th>長什麼樣</th><th>破綻</th></tr></thead>
+    <tbody>
+      <tr><td><b>假投資群組</b></td><td>被拉進 LINE 群，裡面有「老師」「助教」和一堆曬獲利的學員</td><td>群裡除了你以外<b>可能全是同一夥人</b>。獲利截圖可以偽造。</td></tr>
+      <tr><td><b>假名人代言</b></td><td>臉書廣告出現財經名人、企業家推薦某平台</td><td>影像與聲音可用 AI 偽造。<b>去該名人的官方管道確認</b>，通常會看到他們的澄清聲明。</td></tr>
+      <tr><td><b>假投資 APP</b></td><td>要你從連結下載 APP，裡面帳面數字一直漲</td><td>那個數字是<b>畫出來的</b>。特徵：出金時被要求先繳「稅金」「保證金」「解凍費」。</td></tr>
+      <tr><td><b>殺豬盤</b></td><td>交友軟體認識，聊了數週感情很好，再引導你投資</td><td>網路上認識、沒見過面、卻要教你賺錢的人，<b>一律當詐騙</b>。</td></tr>
+      <tr><td><b>飆股老師／內線</b></td><td>付費入會，提供「明牌」</td><td>真有穩賺方法的人不會賣你。他的獲利來自<b>會費</b>，不是操作。</td></tr>
+      <tr><td><b>虛擬貨幣代操／礦機</b></td><td>宣稱穩定日配息、放著就賺</td><td>典型龐氏結構，用後面的人的錢付前面的人。</td></tr>
+      <tr><td><b>假客服／假檢警</b></td><td>「你的帳戶涉及洗錢，要監管」</td><td><b>檢警不會要你匯款或交付金融卡</b>。</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>查證管道：花三分鐘，省下幾十萬</h3>
+  <ul>
+    <li><b>金管會證期局</b> —— 查這家業者是不是合法證券商、投顧、投信。</li>
+    <li><b>投信投顧公會</b> —— 查投顧公司與從業人員登記。</li>
+    <li><b>反詐騙諮詢專線 165</b> —— 不確定就打，這是免費的，而且可以查詐騙網站。</li>
+    <li><b>證交所／櫃買中心</b> —— 查這檔標的是不是真的在台灣掛牌。</li>
+  </ul>
+  <div class="box key">
+    <b>一個萬用檢查法</b>
+    <p>把對方的名稱、平台名、加上「<b>詐騙</b>」兩個字丟進搜尋引擎。如果有一堆討論串，答案就出來了。<b>這個動作三十秒，卻擋掉絕大多數的騙局。</b></p>
+  </div>
+
+  <div class="box warn">
+    <b>如果已經被騙了</b>
+    <p>立刻打 <b>165</b> 或到警局報案，並聯絡銀行嘗試圈存。<b>不要因為難為情而拖延</b> —— 越早通報，攔阻款項的機會越大。也絕對不要相信「幫你把錢追回來」的二次詐騙。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>把 <b>165</b> 存進手機通訊錄。</li>
+      <li>跟家人（尤其長輩）講一次「保證獲利就是詐騙」這句話。台灣受害最深的族群是長輩。</li>
+      <li>檢查自己有沒有被拉進任何投資群組 —— 有的話，現在就退出。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="10"></div>
+</section>
+
+<!-- ══════════════════ 第 11 關 ══════════════════ -->
+<section class="stage" id="s11" data-stage="11">
+  <div class="stage-tag">第 11 關 · 最終關 · 約 5 分鐘</div>
+  <h2>買完之後做什麼：長期紀律</h2>
+  <p class="lede">最後一關最短，也最難。因為它要求你做的事是 —— 幾乎什麼都不做。</p>
+
+  <h3>你唯一要定期做的事：再平衡</h3>
+  <p>假設你設定 60/40。過了一年股票大漲，變成 70/30。這時你的風險<b>不知不覺變高了</b>。</p>
+  <p><b>再平衡</b>＝賣掉漲多的、補回跌多的，讓比例回到你當初設定的數字。</p>
+  <div class="box key">
+    <b>再平衡的兩個效果</b>
+    <ul>
+      <li><b>控制風險</b> —— 這是主要目的，讓你的組合不會愈來愈激進。</li>
+      <li><b>強迫你低買高賣</b> —— 而且是用規則執行，不靠判斷力。</li>
+    </ul>
+    <p style="margin-top:.4rem">頻率：<b>一年一次</b>就夠了，或當比例偏離超過 5~10 個百分點時。做太頻繁會增加交易成本與稅負。</p>
+  </div>
+  <p class="kbd-hint">小技巧：如果你還在持續投入，可以用「新資金補進跌的那一邊」來再平衡，這樣不用賣出、也就不會產生交易稅。</p>
+
+  <h3>不要做的事</h3>
+  <div class="tw">
+  <table>
+    <thead><tr><th>誘惑</th><th>為什麼不要</th></tr></thead>
+    <tbody>
+      <tr><td><b>每天看盤</b></td><td>短期漲跌接近隨機，看盤只增加焦慮和亂動的機率。<b>設定好定期定額之後，一個月看一次都嫌多。</b></td></tr>
+      <tr><td><b>看到新聞就調整</b></td><td>當新聞寫出來時，市場已經反應完了。你看到的是<b>過去式</b>。</td></tr>
+      <tr><td><b>停損、逃頂、抄底</b></td><td>這需要你連續做對兩次判斷（何時出、何時回來）。<b>錯過市場漲最多的少數幾天，長期報酬會大幅縮水。</b></td></tr>
+      <tr><td><b>一直換標的</b></td><td>每換一次就付一次成本。新手最常見的虧損來源不是選錯，是<b>換太多次</b>。</td></tr>
+      <tr><td><b>加槓桿</b></td><td>融資、借貸投資會讓你在最壞的時間點被迫賣出（斷頭）。回去看第 1 關的回本數學。</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>什麼時候該賣</h3>
+  <div class="box ok">
+    <b>只有這三種情況</b>
+    <ol style="margin:.4rem 0 0">
+      <li><b>你原本就要用這筆錢了</b> —— 這是最正當的理由，也是你當初投資的目的。</li>
+      <li><b>再平衡</b> —— 規則性的，不是判斷性的。</li>
+      <li><b>你的人生變了</b> —— 退休、生病、失業，需要調整整體配置。</li>
+    </ol>
+    <p style="margin-top:.5rem">注意這三項裡面，<b>沒有一項是「因為市場跌了」或「因為市場漲很多了」</b>。</p>
+  </div>
+
+  <div class="tool">
+    <div class="tool-h">🌱 複利計算機：看看紀律的長期價值</div>
+    <div class="fields">
+      <div class="field"><label>目前已有本金（元）</label><input type="number" id="c11_p" value="100000" min="0" step="10000"></div>
+      <div class="field"><label>每月投入（元）</label><input type="number" id="c11_m" value="10000" min="0" step="1000"></div>
+      <div class="field"><label>年化報酬（%）</label><input type="number" id="c11_r" value="7" min="0" max="20" step="0.5"></div>
+      <div class="field"><label>投資年數</label><input type="number" id="c11_y" value="20" min="1" max="50"></div>
+    </div>
+    <div class="out" id="c11_out"></div>
+    <p class="kbd-hint" style="margin-top:.6rem">這是<b>平滑化的假設情境</b>，真實市場不會每年都漲 7%。它的用途是理解「時間」的威力，不是預測你的未來資產。</p>
+  </div>
+
+  <h3>最後一句</h3>
+  <div class="box gold">
+    <b>投資成功的公式，比你想的無聊</b>
+    <p style="font-size:1.02rem; margin:.4rem 0"><b>足夠的儲蓄率 ＋ 夠低的成本 ＋ 夠分散的持有 ＋ 夠長的時間 ＋ 不要中途亂動</b></p>
+    <p>這裡面<b>沒有一項需要你聰明、需要你預測、需要你比別人強</b>。它只需要你紀律。這也是為什麼它對一般上班族是可行的。</p>
+  </div>
+
+  <div class="action">
+    <div class="action-h">✅ 這一關的行動</div>
+    <ol>
+      <li>在行事曆上<b>設定一個每年的再平衡提醒</b>（例如每年生日或元旦）。</li>
+      <li>把第 8 關寫的「投資聲明書」拍照存在手機裡。</li>
+      <li>把看盤 APP 的<b>推播通知關掉</b>。這一個動作對你的長期報酬幫助可能超過你想像。</li>
+    </ol>
+  </div>
+
+  <div class="quiz" data-quiz="11"></div>
+</section>
+
+<section class="stage x-faq" id="faq" aria-labelledby="faqTitle">
+  <div class="stage-tag">💬 常見問答</div>
+  <h2 id="faqTitle">走完 12 關，最常冒出來的問題</h2>
+  <p class="lede">闖關題考的是「懂不懂」；這一頁回答的是「那我該怎麼辦」。每一題只講原則、不推薦任何商品，大多數都寫了是哪一關講的，忘了可以點回去看。</p>
+
+  <h3>先破除 6 個迷思</h3>
+  <div class="x-myths">
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>定存最安全，放著就不會少。</div><div class="x-myth-t"><b>✓ 真相</b>數字不會少，但利息常常追不上物價上漲，錢能買到的東西會被慢慢吃掉。<a href="#s1">第 1 關</a></div></div>
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>有人保證高報酬、穩賺不賠，是好機會。</div><div class="x-myth-t"><b>✓ 真相</b>投資沒有「穩定成長」這種東西（<a href="#s1">第 1 關</a>）；在台灣，投資商品依法不能保證獲利——敢保證高報酬、穩賺不賠的，直接結束對話。<a href="#s10">第 10 關</a></div></div>
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>買 ETF 就不會賠錢。</div><div class="x-myth-t"><b>✓ 真相</b>ETF 還是會跟著市場跌（市值型歷史上跌過五成多）；槓桿、反向、期貨型的長期還可能持續耗損。<a href="#s2">第 2</a>、<a href="#s3">3 關</a></div></div>
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>配息越高越好。</div><div class="x-myth-t"><b>✓ 真相</b>除息當天，配多少股價就先扣多少；要看含息的「總報酬」。<a href="#s4">第 4 關</a></div></div>
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>ETF 買越多檔越分散。</div><div class="x-myth-t"><b>✓ 真相</b>很多 ETF 裝的是同一批大公司，多買幾檔可能只是把同一批公司買好幾次。買之前先用第 3 關的方法看前十大持股。<a href="#s3">第 3 關</a></div></div>
+    <div class="x-myth"><div class="x-myth-f"><b>✗ 迷思</b>大跌前先賣掉，跌完再買回來就好。</div><div class="x-myth-t"><b>✓ 真相</b>這要連續猜對兩次；錯過漲最多的少數幾天，長期報酬會大幅縮水。<a href="#s11">第 11 關</a></div></div>
+  </div>
+
+  <h3>6 個常見問題</h3>
+  <details><summary>問：什麼時候買比較好？</summary><div>
+    <p><b>沒有人能穩定猜中最低點。</b>有固定收入的人，最實際的做法是定期定額：每個月固定一天自動買，讓時間幫你分散進場的價格（<a href="#s7">第 7 關</a>；它的期望報酬比一次投入略低，換來的是比較容易堅持）。前提是<a href="#s0">第 0 關</a>那三件事已經清掉；清掉之後，重要的是「持續」，不是挑日子。</p>
+  </div></details>
+  <details><summary>問：什麼時候該賣？</summary><div>
+    <p>看你寫下來的計畫，不看新聞。該賣的時候只有三種：你原本就要用這筆錢了、每年再平衡，或人生有重大變化，例如退休、生病、失業（<a href="#s8">第 8</a>、<a href="#s11">11 關</a>）。裡面沒有一項是「因為市場跌了」或「因為漲很多了」。</p>
+  </div></details>
+  <details><summary>問：錢很少，可以開始嗎？</summary><div>
+    <p><b>可以。</b>台股 ETF 用零股，幾百元就能買（<a href="#s2">第 2 關</a>）。但要注意手續費低消：如果買 1,000 元的零股被收 20 元低消，等於一開始就先虧 2%；有些券商零股低消只有 1 元，開戶前先問清楚（<a href="#s5">第 5 關</a>）。前提是<a href="#s0">第 0 關</a>那三件事已經清掉。錢少的階段，目標是學會流程、養成紀律，不是賺多少。</p>
+  </div></details>
+  <details><summary>問：市場大跌的時候，要賣掉還是加碼？</summary><div>
+    <p>先回到<a href="#s0">第 0 關</a>：放進股市的應該是五年內用不到的錢（三年內要用的錢，只放定存這類保本的地方），預備金另外放好。如果是這樣，就照原本的股債比和每月投入繼續（<a href="#s8">第 8 關</a>）。大約每 10 年會遇到一次跌三成以上的事，這是入場費（<a href="#s1">第 1 關</a>）。</p>
+    <p>如果跌到睡不著，代表這個股債比對你來說太積極（<a href="#s8">第 8 關</a>）——降低比例是理性的調整，不是認輸；只是別在大跌當天一慌就全部賣掉，照寫下來的計畫一步一步調。</p>
+  </div></details>
+  <details><summary>問：要買幾檔 ETF 才夠？</summary><div>
+    <p>檔數不是重點，要看裡面裝了什麼。一檔追蹤前 50 大或整個市場的 ETF，本身就持有幾十到上千家公司（<a href="#s3">第 3 關</a>）；多買幾檔內容大量重疊的，分散效果很有限，買之前先看前十大持股。股票和債券各放多少（<a href="#s8">第 8 關</a>），比挑幾檔更重要。</p>
+  </div></details>
+  <details><summary>問：報酬率要怎麼算才對？</summary><div>
+    <p>兩個常見的算錯：</p>
+    <ol>
+      <li><b>只看配息、不看股價</b>：要看含息的總報酬（<a href="#s4">第 4 關</a>）。</li>
+      <li><b>只看賺錢的那一小筆</b>：例如總資產 200 萬，拿 5 萬買一檔、賺了 1 萬，那一檔是 +20%，但你的總資產只成長 0.5%。</li>
+    </ol>
+    <p>看整體資產的變化，才知道自己真正走到哪裡。</p>
+  </div></details>
+</section>
+
+<section class="stage" id="done" style="border-color:var(--ok)">
+  <div class="stage-tag" style="background:var(--ok-soft); color:var(--ok)">🎓 結業</div>
+  <h2>十二關走完了，接下來呢？</h2>
+  <p class="lede">這門課教完了「怎麼開始且不受重傷」。剩下的是時間的工作。</p>
+  <h3>你現在應該有的東西</h3>
+  <ul>
+    <li>一個沒有高利率負債、有緊急預備金的財務底盤（第 0 關）</li>
+    <li>一個開好的證券帳戶，和一筆跑通流程的測試單（第 5、7 關）</li>
+    <li>一張寫下來的股債比與每月投入金額（第 8 關）</li>
+    <li>一個設定好的定期定額，和一個每年再平衡的行事曆提醒（第 7、11 關）</li>
+    <li>認得出詐騙的能力（第 10 關）</li>
+  </ul>
+  <h3>如果想再往下學</h3>
+  <ul>
+    <li><b>先把這門課的東西執行滿一年</b>，經歷一次真實的下跌，比多讀十本書有用。</li>
+    <li>之後可以研究的主題：資產配置的進階做法、退休提領策略（4% 法則的爭議）、稅務規劃、保險與投資的分離。</li>
+    <li><b>金融消費評議中心</b>與<b>金管會</b>的網站有免費的投資人教育資源，是中立且可靠的來源。</li>
+  </ul>
+  <div class="box key">
+    <b>系列第 2 門：台灣 AI 供應鏈闖關課</b>
+    <p>用 14 關認識台灣 AI 供應鏈上市櫃市值前 150 家公司，學會看 ROE、本益比，還有「AI 概念股」怎麼自己判斷。股價類數字會隨收盤更新。 <a href="ai.html" data-series="ai">打開台灣 AI 供應鏈闖關課 →</a></p>
+  </div>
+  <div class="box gold">
+    <b>最後提醒一次</b>
+    <p>這份教材是<b>投資教育</b>，幫你建立判斷能力。它<b>不是</b>針對你個人狀況的投資建議，也不推薦任何特定商品。牽涉到你自己的金額、標的與稅務規劃，請自行判斷或諮詢<b>合格的持牌理財顧問、會計師</b>。</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="disclaimer">
+  <div>
+    <b>免責聲明</b><br>
+    本頁面為個人學習用的投資教育教材，內容僅供一般性知識參考，<b>不構成任何投資建議、要約或推薦</b>，亦未針對任何特定人之財務狀況、需求或目標提供意見。<br><br>
+    文中所引用之報酬率、跌幅、費率、稅率等數字，為建立概念量級之用的<b>概略值或歷史區間</b>，可能因資料來源、統計期間、是否含息、幣別而有差異，並可能已隨法規修訂而變動，<b>請務必自行向主管機關、金融機構或專業人士查證</b>。<br><br>
+    歷史績效不代表未來表現。投資均有風險，可能導致本金虧損。任何投資決策及其結果由使用者自行承擔。<br><br>
+    <span style="opacity:.75">產出日期：2026-08-29　·　本頁所有資料僅儲存在你自己的瀏覽器（localStorage），不會上傳到任何地方。</span>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ══════════ 課程結構 ══════════ */
+const STAGES = [
+  {n:0,  t:"開戶前先清掉三件事"},
+  {n:1,  t:"沒有「穩定成長」這種事"},
+  {n:2,  t:"市面上有哪些投資工具"},
+  {n:3,  t:"ETF 是什麼"},
+  {n:4,  t:"市值型 vs 高股息"},
+  {n:5,  t:"台股開戶實戰"},
+  {n:6,  t:"美股怎麼買"},
+  {n:7,  t:"第一筆下單"},
+  {n:8,  t:"股債比與資產配置"},
+  {n:9,  t:"費用與稅"},
+  {n:10, t:"詐騙辨識"},
+  {n:11, t:"長期紀律"}
+];
+
+/* ══════════ 測驗題庫 ══════════ */
+const QUIZ = {
+0:[
+  {q:"你有一筆卡債年利率 15%，同時想開始投資股票。比較合理的順序是？",
+   o:["先把卡債還清，再開始投資","一半還債一半投資，分散風險","先投資，因為股票報酬可能超過 15%","借更多錢投資，用獲利還債"],
+   a:0, w:"還掉 15% 的債＝確定賺到 15%，零風險。股票長期年化約 7~10% 而且不保證，期望值上打不過。"},
+  {q:"緊急預備金應該放在哪裡？",
+   o:["活存或短期定存等隨時能動用的地方","股票型 ETF，才不會被通膨吃掉","加密貨幣，報酬比較高","儲蓄險，強迫自己不要動用"],
+   a:0, w:"它的任務是「隨時拿得到、金額不縮水」，不是賺錢。放在會波動或有解約損失的地方就失去意義了。"},
+  {q:"明年要付的房子頭期款，適合怎麼處理？",
+   o:["放定存或高利活存等保本工具","買市值型 ETF，一年應該會漲","買高股息 ETF，還能領配息","一半定存一半股票"],
+   a:0, w:"股市不會配合你的時程表。三年內確定要用的錢放進股市，等於把「暫時下跌」變成「被迫實現的虧損」。"}
+],
+1:[
+  {q:"關於「最大回撤」，哪個說法正確？",
+   o:["它代表從高點跌到低點的幅度，反映持有過程有多痛","它是每年平均的報酬率","它越大代表這個投資越好","它只會發生在個股，ETF 不會有"],
+   a:0, w:"年化報酬告訴你終點，最大回撤告訴你路上的痛苦程度。決定你會不會半路下車的是後者。"},
+  {q:"一筆投資跌了 50%，要漲多少才回到原點？",
+   o:["100%","50%","75%","150%"],
+   a:0, w:"跌 50% 後剩一半，要翻倍才回得去。這個不對稱性就是為什麼「避開大賠」比「追求大賺」重要。"},
+  {q:"有人推薦一個商品：年報酬 12%、保證不賠、每月配息。最合理的反應是？",
+   o:["這是詐騙的典型特徵，直接拒絕並查證","報酬不錯，先投一小筆試試","要求看更多獲利截圖再決定","問問題但先匯一點錢卡位"],
+   a:0, w:"合法金融商品依法不得保證獲利。「高報酬＋保證＋穩定」三件事同時出現，本身就是最強的警訊。"}
+],
+2:[
+  {q:"「高收益債」的正式名稱是什麼？",
+   o:["非投資等級債，也就是俗稱的垃圾債","政府保證的優質債券","短天期的公債","有存款保險保障的債券"],
+   a:0, w:"名字聽起來很好，但它的高收益來自於高倒帳風險。股市崩盤時它會跟著崩，不具避險功能。"},
+  {q:"以下哪一項在歷史上曾經跌超過 50%？",
+   o:["台股加權指數與美股 S&P 500 都曾發生","只有加密貨幣","只有個股，指數不會","台幣定存"],
+   a:0, w:"2008 年兩者都跌了將近六成。這不是意外，是長期投資必然會遇到的入場費，大約每十年一次。"},
+  {q:"槓桿型 ETF（例如「正 2」）不適合新手長期持有，主要原因是？",
+   o:["它每日重置，長期持有在震盪市場會持續耗損","它的手續費比較貴","它不能用定期定額買","它只能在盤後交易"],
+   a:0, w:"它的設計目標是「追蹤單日報酬的兩倍」，不是「長期報酬的兩倍」。盤整愈久，耗損愈明顯。"}
+],
+3:[
+  {q:"買一檔追蹤台灣前 50 大企業的 ETF，實際上等於？",
+   o:["同時持有那 50 家公司的一小部分","持有一家叫做 ETF 的公司股票","把錢借給投信公司","買了一份保證獲利的合約"],
+   a:0, w:"ETF 就是一籃子股票包成一張憑證。這帶來兩個好處：不用選股，而且自動分散。"},
+  {q:"「總費用率（內扣費用）」的特性是？",
+   o:["直接從基金淨值扣除，不會出現在你的對帳單上","每次交易時另外向你收取","只有賣出時才收","政府補貼，不用你付"],
+   a:0, w:"因為看不到，所以最容易被忽略 —— 但它每年都收，長期複利下來影響非常大。"},
+  {q:"以下哪一個「不是」判斷 ETF 好壞該看的核心指標？",
+   o:["最近一週漲了多少","總費用率","基金規模","追蹤誤差"],
+   a:0, w:"短期漲跌接近隨機，對長期持有沒有參考價值。該看的是成本、規模、追蹤準度、流動性。"}
+],
+4:[
+  {q:"某 ETF 股價 100 元，配息 5 元。除息當天你的總資產會？",
+   o:["不變，只是從股票變成股票加現金","增加 5%","減少 5%","變成 105 元"],
+   a:0, w:"除息會把股價扣掉配息金額。真正賺到是在「填息」之後 —— 而填息不保證會發生。"},
+  {q:"評估一檔 ETF 的真實表現，該看哪個數字？",
+   o:["含息的總報酬","現金殖利率","配息頻率是不是月配","過去一年配了幾元"],
+   a:0, w:"殖利率只算配息、沒算股價漲跌。配 8% 但股價跌 10%，實際上是虧的。"},
+  {q:"高股息 ETF 相對於市值型 ETF，有哪一項明確的劣勢？",
+   o:["配息多導致股利所得稅與健保補充保費的成本較高","它一定會下市","它不能定期定額","它沒有內扣費用"],
+   a:0, w:"配息在台灣是要課稅的。配得越多、越頻繁，稅務摩擦越大。這是常被忽略的隱藏成本。"}
+],
+5:[
+  {q:"小額投資人選券商時，最該問清楚的是？",
+   o:["電子下單折扣以及「單筆最低手續費」","營業員人好不好","開戶送什麼禮物","公司大樓在哪裡"],
+   a:0, w:"買 1000 元零股卻被收 20 元低消，等於一開始就先虧 2%。低消對小額投資人的殺傷力大於費率。"},
+  {q:"「交割戶」是什麼？",
+   o:["跟證券帳戶連動的銀行帳戶，買賣股票的錢從這裡進出","存放股票的帳戶","券商的公司帳戶","繳稅專用的帳戶"],
+   a:0, w:"新手第一次下單失敗，最常見的原因就是交割戶餘額不足。買進後 T+2 會扣款。"}
+],
+6:[
+  {q:"透過海外券商直接持有大量美股，需要特別留意的風險是？",
+   o:["非美國人持有美國資產可能面臨美國遺產稅，稅率可達 40%","美股週末不能交易","美股沒有 ETF 可以買","海外券商不能買 S&P 500"],
+   a:0, w:"這是長期大額持有者的重要議題，超過免稅額的部分稅率很高，金額變大時應諮詢會計師。"},
+  {q:"對「金額不大、想少一點麻煩」的新手，買美股相對合理的方式是？",
+   o:["複委託，或直接買台股掛牌的海外市場 ETF","一定要開海外券商才划算","不要碰美股","用信用卡刷"],
+   a:0, w:"海外券商的成本優勢要金額夠大才顯現。小額每月匯款，光電匯費就吃光價差。"}
+],
+7:[
+  {q:"新手下單為什麼一律建議用「限價單」？",
+   o:["可以完全控制成交價格，避免在劇烈行情中成交在離譜的價位","比較快成交","手續費比較便宜","限價單不用付證交稅"],
+   a:0, w:"買不到從來不是問題，買貴才是。市價單在流動性差時可能成交在很糟的價格。"},
+  {q:"定期定額相對於單筆投入的主要優勢是？",
+   o:["心理上好執行，不用擇時，大幅提高長期堅持的機率","數學上期望報酬比較高","保證不會虧損","可以避開所有手續費"],
+   a:0, w:"數學上單筆略優（錢在場內時間更久），但定期定額讓你更可能撐過崩盤而不停扣 —— 這才是決勝點。"},
+  {q:"你的第一筆下單，最合理的目的是？",
+   o:["用極小金額跑通「下單→成交→扣款→庫存」的完整流程","一次把所有資金投進去","賺到第一桶金","測試自己會不會挑到飆股"],
+   a:0, w:"第一筆是熟悉系統，不是賺錢。走完一趟，對操作的恐懼會消失大半，之後才建立真正的部位。"}
+],
+8:[
+  {q:"債券在資產配置中的主要角色是？",
+   o:["降低整體波動的減震器","創造最高的長期報酬","保證本金不會虧損","取代緊急預備金"],
+   a:0, w:"它不是拿來賺錢的主角。它的價值在於股票大跌時讓你的帳面沒那麼難看，你才抱得住。"},
+  {q:"「100 減年齡」這個股票比例規則的主要問題是？",
+   o:["只看年齡，忽略收入穩定度、用錢時程與實際心理承受度","算出來的數字太高","它是違法的","只適用於美國"],
+   a:0, w:"同樣 40 歲，公務員和接案者能承受的風險差很多。方便的規則不等於適合你的規則。"},
+  {q:"「投資聲明書」裡不應該列為調整理由的是？",
+   o:["市場大漲或大跌","結婚或生小孩","接近退休","每年例行的再平衡"],
+   a:0, w:"市場漲跌正是它要保護你不去反應的東西。寫下來的目的，就是讓冷靜的你管住慌張的你。"}
+],
+9:[
+  {q:"台股的證券交易稅有什麼特性？",
+   o:["只有賣出時課徵，且 ETF 稅率低於一般股票","買進賣出都收","完全免稅","只有外國人要付"],
+   a:0, w:"賣出時課徵，一般股票 0.3%、ETF 0.1%。這是 ETF 相對個股的一個小優勢。"},
+  {q:"非美國居民持有美股，領到的股利通常會？",
+   o:["被預扣約 30% 的稅","完全免稅","要另外自己申報繳 10%","退還給你"],
+   a:0, w:"這讓「用美股做高股息策略」的吸引力大幅下降，是規劃海外投資時的重要考量。"},
+  {q:"為什麼 1% 的內扣費用差距，長期影響會這麼大？",
+   o:["它每年都收，而且被扣掉的錢失去了繼續複利的機會","因為它會逐年增加","因為政府會加倍課稅","因為它會影響股價"],
+   a:0, w:"少賺的那 1% 本來還會滾利息。三十年下來，差距通常大到令人意外 —— 這也是唯一你能完全控制的變數。"}
+],
+10:[
+  {q:"最強烈的詐騙警訊是哪一個？",
+   o:["保證獲利、保證不賠","公司有網站","有客服可以聯絡","要求你填寫風險問卷"],
+   a:0, w:"在台灣，合法金融機構依法不得保證獲利。敢保證的，就已經說明了它的性質。"},
+  {q:"對方要你把投資款匯到一個「個人帳戶」，這代表？",
+   o:["幾乎可以確定是詐騙","對方公司比較有彈性","可以節省手續費","是正常的內部作業"],
+   a:0, w:"合法投資的錢會進你自己的交割戶或券商信託專戶，不會進某個人的帳戶。"},
+  {q:"在網路上認識、沒見過面的人，熱心教你投資賺錢。合理的判斷是？",
+   o:["直接視為詐騙，不要投入任何金額","先小額試水溫","看他的獲利截圖決定","加入他的群組觀察一陣子"],
+   a:0, w:"這是「殺豬盤」的標準劇本：先建立感情信任，再引導投資。截圖與群組成員都可以偽造。"}
+],
+11:[
+  {q:"「再平衡」的主要目的是？",
+   o:["把配置比例拉回設定值，控制風險不隨市場漂移","盡量提高報酬率","在最高點賣掉所有股票","避免繳稅"],
+   a:0, w:"主要是控制風險。附帶效果是用規則強迫你低買高賣，不必依賴判斷力。"},
+  {q:"以下哪一個「是」賣出的正當理由？",
+   o:["你原本就規劃在這個時間點要用這筆錢","市場跌了 20%，先出場觀望","新聞說景氣要衰退","朋友說有更好的標的"],
+   a:0, w:"賣出的正當理由只有三種：要用錢、再平衡、人生重大變化。市場漲跌不在其中。"},
+  {q:"投資成功的公式裡，不包含下列哪一項？",
+   o:["準確預測市場短期走向的能力","足夠的儲蓄率","夠低的成本","夠長的時間"],
+   a:0, w:"整套方法之所以對一般上班族可行，正是因為它不需要預測能力，只需要紀律。"}
+]
+};
+
+/* ══════════ 進度狀態 ══════════ */
+const KEY = "invest_course_v1";
+let state = {done:{}, ans:{}};
+let canStore = true;
+try{
+  localStorage.setItem("__t","1"); localStorage.removeItem("__t");
+  const raw = localStorage.getItem(KEY); if(raw) state = Object.assign(state, JSON.parse(raw));
+}catch(e){ canStore = false; }
+function save(){ if(!canStore) return; try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+/* 瀏覽器擋掉本機儲存時，先講清楚，免得使用者以為進度不見了是壞掉 */
+if(!canStore){
+  const tip = document.createElement("div");
+  tip.style.cssText = "max-width:1180px;margin:.8rem auto 0;padding:.6rem .9rem;"
+    + "background:var(--warn-soft);border:1px solid var(--warn);border-radius:9px;"
+    + "font-size:.83rem;line-height:1.6;color:var(--text)";
+  tip.innerHTML = "\u26a0\ufe0f <b>這個瀏覽器擋住了本機儲存</b>，闖關進度只在這次瀏覽有效，"
+    + "關掉分頁就會重來。想要進度被記住的話，把這個檔案改用 <b>Chrome</b> 直接開啟即可。";
+  document.querySelector(".shell").parentNode.insertBefore(tip, document.querySelector(".shell"));
+}
+
+/* ══════════ 目錄 ══════════ */
+const tocList = document.getElementById("tocList");
+STAGES.forEach(s=>{
+  const a = document.createElement("a");
+  a.href = "#s"+s.n; a.id = "toc"+s.n;
+  a.innerHTML = '<span class="no">'+s.n+'</span><span>'+s.t+'</span>';
+  tocList.appendChild(a);
+});
+function refreshToc(){
+  let n = 0;
+  STAGES.forEach(s=>{
+    const a = document.getElementById("toc"+s.n);
+    if(state.done[s.n]){ a.classList.add("done"); n++;
+      if(!a.querySelector(".ck")){ const c=document.createElement("span"); c.className="ck"; c.textContent="✓"; c.style.marginLeft="auto"; a.appendChild(c); }
+    } else { a.classList.remove("done"); const c=a.querySelector(".ck"); if(c) c.remove(); }
+  });
+  document.getElementById("progText").textContent = n + " / " + STAGES.length;
+  document.getElementById("progbar").style.width = (n/STAGES.length*100) + "%";
+}
+
+/* ══════════ 測驗渲染 ══════════ */
+function shuffle(arr){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+document.querySelectorAll("[data-quiz]").forEach(box=>{
+  const sid = box.getAttribute("data-quiz");
+  const qs = QUIZ[sid] || [];
+  let html = '<div class="quiz-h">🔒 過關測驗</div>'
+    + '<div class="quiz-sub">全部答對才算通過這一關。答錯會告訴你為什麼。</div>';
+  qs.forEach((item,qi)=>{
+    html += '<div class="q" data-q="'+qi+'"><div class="q-t">'+(qi+1)+'. '+item.q+'</div><div class="opts">';
+    shuffle(item.o.map((op,oi)=>oi)).forEach(oi=>{
+      html += '<label class="opt"><input type="radio" name="q'+sid+'_'+qi+'" value="'+oi+'"><span>'+item.o[oi]+'</span></label>';
+    });
+    html += '</div><div class="why">💡 '+item.w+'</div></div>';
+  });
+  html += '<div class="quiz-foot"><button class="btn btn-primary" data-check="'+sid+'">送出答案</button>'
+        + '<span class="score" data-score="'+sid+'"></span></div>';
+  box.innerHTML = html;
+});
+
+document.addEventListener("click", e=>{
+  const btn = e.target.closest("[data-check]");
+  if(!btn) return;
+  const sid = btn.getAttribute("data-check");
+  const box = document.querySelector('[data-quiz="'+sid+'"]');
+  const qs = QUIZ[sid] || [];
+  let right = 0, answered = 0;
+  qs.forEach((item,qi)=>{
+    const qEl = box.querySelector('[data-q="'+qi+'"]');
+    const sel = qEl.querySelector('input:checked');
+    qEl.querySelectorAll(".opt").forEach(o=>o.classList.remove("right","wrong"));
+    qEl.querySelector(".why").classList.remove("show");
+    if(!sel) return;
+    answered++;
+    const v = parseInt(sel.value,10);
+    const lab = sel.closest(".opt");
+    if(v === item.a){ lab.classList.add("right"); right++; }
+    else{
+      lab.classList.add("wrong");
+      qEl.querySelector('input[value="'+item.a+'"]').closest(".opt").classList.add("right");
+      qEl.querySelector(".why").classList.add("show");
+    }
+  });
+  const sc = box.querySelector('[data-score="'+sid+'"]');
+  if(answered < qs.length){
+    sc.textContent = "還有 " + (qs.length-answered) + " 題沒作答";
+    sc.style.color = "var(--warn)";
+    return;
+  }
+  if(right === qs.length){
+    sc.textContent = "✓ 全對，第 " + sid + " 關通過！";
+    sc.style.color = "var(--ok)";
+    state.done[sid] = true; save(); refreshToc();
+    const next = document.getElementById("s"+(parseInt(sid,10)+1)) || document.getElementById("done");
+    if(next) setTimeout(()=>next.scrollIntoView({behavior:"smooth", block:"start"}), 700);
+  }else{
+    sc.textContent = right + " / " + qs.length + " —— 看一下說明，改完再送出一次";
+    sc.style.color = "var(--danger)";
+    state.done[sid] = false; save(); refreshToc();
+  }
+});
+
+/* ══════════ 工具函式 ══════════ */
+const nf = new Intl.NumberFormat("zh-TW",{maximumFractionDigits:0});
+const money = v => nf.format(Math.round(v)) + " 元";
+const wan = v => (v>=100000000) ? (v/100000000).toFixed(2)+" 億" : (v>=10000) ? nf.format(Math.round(v/10000))+" 萬" : nf.format(Math.round(v));
+const num = id => { const el=document.getElementById(id); const v=parseFloat(el.value); return isNaN(v)?0:v; };
+function bind(ids, fn){ ids.forEach(i=>{ const el=document.getElementById(i); if(el){ el.addEventListener("input",fn); el.addEventListener("change",fn); } }); fn(); }
+
+/* ── 第 0 關：開戶前體檢 ── */
+bind(["c0_exp","c0_mon","c0_cash","c0_debt"], function(){
+  const exp=num("c0_exp"), mon=num("c0_mon"), cash=num("c0_cash"), debt=num("c0_debt");
+  const need = exp*mon;
+  const avail = cash - need - debt;
+  let head, color, msg;
+  if(debt > 0 && cash < debt){
+    head = "先處理負債"; color="var(--danger)";
+    msg = "你的存款還不足以清償高利率負債。<b>這半年的目標是把債還完</b>，那筆利息就是你確定賺到的報酬，沒有任何投資能保證這個數字。";
+  }else if(avail <= 0){
+    head = "先補預備金"; color="var(--warn)";
+    msg = "扣掉負債與預備金後還差 <b>"+money(Math.abs(avail))+"</b>。<b>先把這個缺口補起來</b>，這比急著進場有價值得多 —— 它決定你將來會不會被迫在最低點賣出。";
+  }else{
+    head = "可投資金額"; color="var(--ok)";
+    msg = "這是你<b>五年內用不到、可以承受波動</b>的錢。建議<b>不要一次投入</b>，用它除以 24~36，得到每月定期定額的金額（第 7、8 關會用到）。";
+  }
+  document.getElementById("c0_out").innerHTML =
+    '<div class="sub">'+head+'</div>'
+    + '<span class="big" style="color:'+color+'">'+ (avail>0? money(avail) : money(0)) +'</span>'
+    + '<div class="sub" style="margin:.5rem 0 .6rem">緊急預備金需求 '+money(need)+'　·　高利負債 '+money(debt)+'　·　現有存款 '+money(cash)+'</div>'
+    + '<div style="font-size:.87rem; line-height:1.7">'+msg+'</div>'
+    + (avail>0 ? '<div class="sub" style="margin-top:.6rem">參考：除以 24 個月 ≈ <b>'+money(avail/24)+' / 月</b>　·　除以 36 個月 ≈ <b>'+money(avail/36)+' / 月</b></div>' : '');
+});
+
+/* ── 第 1 關：下跌模擬器 ── */
+bind(["c1_amt","c1_dd"], function(){
+  const amt=num("c1_amt"), dd=num("c1_dd");
+  const loss = amt*dd/100, left = amt-loss;
+  const back = dd>=100 ? Infinity : (100/(100-dd)-1)*100;
+  const yrs = (Math.log(amt/left)/Math.log(1.08)).toFixed(1);
+  document.getElementById("c1_out").innerHTML =
+    '<div class="sub">帳面上你會看到</div>'
+    + '<span class="big" style="color:var(--danger)">−'+money(loss)+'</span>'
+    + '<div class="sub">從 '+money(amt)+' 剩下 <b>'+money(left)+'</b></div>'
+    + '<div class="bars">'
+    +   '<div class="barrow"><span>下跌前</span><div class="bartrack"><div class="barfill" style="width:100%;background:var(--accent)"></div></div><span>'+wan(amt)+'</span></div>'
+    +   '<div class="barrow"><span>下跌後</span><div class="bartrack"><div class="barfill" style="width:'+(100-dd)+'%;background:var(--danger)"></div></div><span>'+wan(left)+'</span></div>'
+    + '</div>'
+    + '<div style="font-size:.87rem; margin-top:.8rem; line-height:1.7">'
+    +   '要回到原點，需要再漲 <b style="color:var(--warn)">'+back.toFixed(1)+'%</b>。'
+    +   '若之後每年以 8% 複利成長，帳面回本大約需要 <b>'+yrs+' 年</b>。'
+    + '</div>'
+    + '<div class="sub" style="margin-top:.6rem">現在誠實回答：看到這個數字，你會不會想全部賣掉？答案決定你在第 8 關的股債比。</div>';
+});
+
+/* ── 第 8 關：風險測驗 ── */
+const RISK = [
+  {q:"你的投資如果一年內跌了 30%，你的反應會是？",
+   o:[["全部賣掉，睡不著",0],["賣掉一部分，減輕壓力",1],["不動，繼續定期定額",2],["加碼買進，因為變便宜了",3]]},
+  {q:"這筆錢你預計多久之後會用到？",
+   o:[["3 年內",0],["3~7 年",1],["7~15 年",2],["15 年以上或退休才用",3]]},
+  {q:"你的收入穩定度？",
+   o:[["起伏很大或不穩定",0],["普通，有淡旺季",1],["穩定的月薪",2],["非常穩定且有其他收入來源",3]]}
+];
+(function(){
+  const wrap = document.getElementById("riskQuiz");
+  if(!wrap) return;
+  let h = "";
+  RISK.forEach((item,i)=>{
+    h += '<div class="q"><div class="q-t">'+(i+1)+'. '+item.q+'</div><div class="opts">';
+    item.o.forEach((op,oi)=>{
+      h += '<label class="opt"><input type="radio" name="risk'+i+'" value="'+op[1]+'"><span>'+op[0]+'</span></label>';
+    });
+    h += '</div></div>';
+  });
+  wrap.innerHTML = h;
+  wrap.addEventListener("change", function(){
+    let total=0, cnt=0;
+    RISK.forEach((item,i)=>{
+      const s = wrap.querySelector('input[name="risk'+i+'"]:checked');
+      if(s){ total += parseInt(s.value,10); cnt++; }
+    });
+    const out = document.getElementById("risk_out");
+    if(cnt < RISK.length){ out.style.display="none"; return; }
+    let stock, label, note;
+    if(total<=2){ stock=20; label="保守"; note="你目前的狀況不適合高股票比例。這不是缺點 —— 用你撐得住的比例長期執行，勝過用撐不住的比例中途放棄。"; }
+    else if(total<=4){ stock=40; label="穩健偏保守"; note="以降低波動為優先。等你實際經歷過一次下跌、確認自己撐得住，再考慮調高股票比例。"; }
+    else if(total<=6){ stock=60; label="穩健"; note="經典的 60/40 配置。對多數人來說是報酬與睡眠品質的合理平衡點。"; }
+    else if(total<=8){ stock=80; label="積極"; note="你的條件允許較高的股票比例。但請記得：測驗上的勇敢，和真實崩盤時的勇敢是兩回事。"; }
+    else { stock=90; label="非常積極"; note="條件很好。仍建議保留一部分債券當減震器，並確認你的緊急預備金確實充足。"; }
+    out.style.display="block";
+    out.innerHTML = '<div class="sub">你的參考起始配置（'+label+'）</div>'
+      + '<span class="big">股票 '+stock+'% / 債券 '+(100-stock)+'%</span>'
+      + '<div class="bars" style="margin-top:.5rem">'
+      +   '<div class="barrow"><span>股票</span><div class="bartrack"><div class="barfill" style="width:'+stock+'%;background:var(--accent)"></div></div><span>'+stock+'%</span></div>'
+      +   '<div class="barrow"><span>債券</span><div class="bartrack"><div class="barfill" style="width:'+(100-stock)+'%;background:var(--ok)"></div></div><span>'+(100-stock)+'%</span></div>'
+      + '</div>'
+      + '<div style="font-size:.87rem;margin-top:.8rem;line-height:1.7">'+note+'</div>'
+      + '<div class="sub" style="margin-top:.6rem">這是<b>教育性質的參考起點</b>，不是針對你個人財務狀況的投資建議。實際配置請自行判斷或諮詢合格顧問。</div>';
+  });
+})();
+
+/* ── 第 9 關：費用侵蝕 ── */
+function fv(monthly, years, annualPct){
+  const i = annualPct/100/12, n = years*12;
+  if(i === 0) return monthly*n;
+  return monthly * ((Math.pow(1+i,n)-1)/i);
+}
+bind(["c9_m","c9_y","c9_r","c9_f1","c9_f2"], function(){
+  const m=num("c9_m"), y=num("c9_y"), r=num("c9_r"), f1=num("c9_f1"), f2=num("c9_f2");
+  const a = fv(m,y,Math.max(r-f1,0)), b = fv(m,y,Math.max(r-f2,0));
+  const gap = a-b, invested = m*y*12;
+  const pct = a>0 ? (gap/a*100) : 0;
+  document.getElementById("c9_out").innerHTML =
+    '<div class="sub">'+y+' 年後，兩個方案的差距</div>'
+    + '<span class="big" style="color:var(--danger)">'+money(gap)+'</span>'
+    + '<div class="sub">相當於最終資產的 '+pct.toFixed(1)+'%　·　你總共只投入了 '+money(invested)+'</div>'
+    + '<div class="bars">'
+    +   '<div class="barrow"><span>費用 '+f1+'%</span><div class="bartrack"><div class="barfill" style="width:100%;background:var(--ok)"></div></div><span>'+wan(a)+'</span></div>'
+    +   '<div class="barrow"><span>費用 '+f2+'%</span><div class="bartrack"><div class="barfill" style="width:'+(a>0?(b/a*100):0)+'%;background:var(--warn)"></div></div><span>'+wan(b)+'</span></div>'
+    + '</div>'
+    + '<div style="font-size:.87rem;margin-top:.8rem;line-height:1.7">每年 <b>'+(f2-f1).toFixed(2)+'%</b> 的費用差距，'+y+' 年後讓你少了 <b>'+money(gap)+'</b>。這筆錢不是虧在市場上，是<b>付給了金融機構</b>。</div>';
+});
+
+/* ── 第 11 關：複利計算機 ── */
+bind(["c11_p","c11_m","c11_r","c11_y"], function(){
+  const p=num("c11_p"), m=num("c11_m"), r=num("c11_r"), y=num("c11_y");
+  const i=r/100/12, n=y*12;
+  const total = p*Math.pow(1+i,n) + (i===0? m*n : m*((Math.pow(1+i,n)-1)/i));
+  const invested = p + m*n;
+  const gain = total - invested;
+  const gpct = total>0 ? gain/total*100 : 0;
+  document.getElementById("c11_out").innerHTML =
+    '<div class="sub">'+y+' 年後的預估資產（假設情境）</div>'
+    + '<span class="big" style="color:var(--ok)">'+money(total)+'</span>'
+    + '<div class="bars" style="margin-top:.5rem">'
+    +   '<div class="barrow"><span>你投入的</span><div class="bartrack"><div class="barfill" style="width:'+(total>0?invested/total*100:0)+'%;background:var(--accent)"></div></div><span>'+wan(invested)+'</span></div>'
+    +   '<div class="barrow"><span>複利貢獻</span><div class="bartrack"><div class="barfill" style="width:'+(total>0?gain/total*100:0)+'%;background:var(--ok)"></div></div><span>'+wan(gain)+'</span></div>'
+    + '</div>'
+    + '<div style="font-size:.87rem;margin-top:.8rem;line-height:1.7">你自己出了 <b>'+money(invested)+'</b>，其餘 <b>'+money(gain)+'</b>（占 '+gpct.toFixed(0)+'%）來自時間與複利。<b>你唯一要做的事，就是不要中途停下來。</b></div>';
+});
+
+/* ══════════ 外觀與重置 ══════════ */
+const TKEY="invest_theme";
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem(TKEY); }catch(e){}   /* 擋住儲存時不能讓整段中斷 */
+  if(saved) document.documentElement.setAttribute("data-theme", saved);
+  else if(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches)
+    document.documentElement.setAttribute("data-theme","dark");
+})();
+document.getElementById("themeBtn").addEventListener("click", ()=>{
+  const cur = document.documentElement.getAttribute("data-theme")==="dark" ? "light":"dark";
+  document.documentElement.setAttribute("data-theme", cur);
+  try{ localStorage.setItem(TKEY, cur); }catch(e){}
+});
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  if(!confirm("確定要清除所有闖關進度與測驗答案嗎？這個動作無法復原。")) return;
+  state = {done:{}, ans:{}}; save();
+  document.querySelectorAll('.quiz input[type=radio]').forEach(r=>r.checked=false);
+  document.querySelectorAll('.opt').forEach(o=>o.classList.remove("right","wrong"));
+  document.querySelectorAll('.why').forEach(w=>w.classList.remove("show"));
+  document.querySelectorAll('.score').forEach(s=>s.textContent="");
+  refreshToc();
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+/* ══════════ 捲動高亮 ══════════ */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(!en.isIntersecting) return;
+    const n = en.target.getAttribute("data-stage");
+    if(n === null) return;
+    document.querySelectorAll(".toc a").forEach(a=>a.classList.remove("active"));
+    const a = document.getElementById("toc"+n);
+    if(a) a.classList.add("active");
+  });
+},{rootMargin:"-70px 0px -70% 0px"});
+document.querySelectorAll("[data-stage]").forEach(s=>obs.observe(s));
+
+/* 第 3 關「自己查一次」：輸入 ETF 代號 → 證交所 ETF e添富的單一 ETF 頁連結 */
+(function(){
+  const inp = document.getElementById("lookEtf"), out = document.getElementById("lookEtfOut");
+  if(!inp || !out) return;
+  const hint = out.textContent;
+  inp.addEventListener("input", ()=>{
+    const k = inp.value.trim().replace(/[０-９Ａ-Ｚａ-ｚ]/g, c=>String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).toUpperCase();   // 全形數字、字母也接受
+    out.textContent = "";
+    if(!k || /^0[0-9]{0,2}$/.test(k)){ out.textContent = hint; return; }   // 0、00、008 這種還沒打完的，先不報錯
+    if(/^[1-9][0-9]{0,2}$/.test(k)){ out.textContent = "台股 ETF 代號都是 00 開頭，例如 878 要打 00878、56 要打 0056。"; return; }
+    if(!/^00[0-9]{2,4}[A-Z]?$/.test(k)){ out.textContent = "台股 ETF 的代號都是 00 開頭，例如 0050、006208、00878。"; return; }
+    const a = document.createElement("a");
+    a.href = "https://www.twse.com.tw/zh/ETFortune/etfInfo/" + encodeURIComponent(k);
+    a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.textContent = "打開證交所 ETF e添富：" + k;
+    out.append(a, "（代號要打完整再點）");
+  });
+})();
+
+refreshToc();
+})();
+</script>
+</body>
+</html>

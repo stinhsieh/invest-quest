@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>家人上手說明</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --line:#d9dee6;
+    --text:#16202e; --text-dim:#546175; --text-faint:#64748b;
+    --accent:#1d4ed8; --accent-soft:#e5edff;
+    --ok:#15803d; --ok-soft:#dcfce7;
+    --warn:#a16207; --warn-soft:#fef9c3;
+    --danger:#b91c1c; --danger-soft:#fee2e2;
+    --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 16px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d1117; --surface:#161b22; --surface-2:#1c232c; --line:#2b333d;
+      --text:#e6edf3; --text-dim:#a3b0c0; --text-faint:#7d8b9c;
+      --accent:#6494ff; --accent-soft:#16233d;
+      --ok:#4ade80; --ok-soft:#12301d;
+      --warn:#facc15; --warn-soft:#332a0d;
+      --danger:#f87171; --danger-soft:#3d1a1a;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{background:var(--bg)}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:17px; line-height:1.7; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:1.5rem 16px 4rem}
+  h1,h2,h3{line-height:1.35; margin:0 0 .5rem; letter-spacing:-.01em}
+  h1{font-size:1.5rem}
+  h2{font-size:1.15rem}
+  p{margin:.6rem 0}
+  ul,ol{margin:.6rem 0; padding-left:1.4rem}
+  li{margin:.4rem 0}
+  a{color:var(--accent)}
+  strong{color:var(--text)}
+
+  header.top{text-align:center; margin-bottom:1.6rem}
+  header.top .lede{color:var(--text-dim); font-size:1.02rem; max-width:34em; margin:.6rem auto 0}
+
+  section{margin:2.2rem 0}
+  section > h2{font-size:1.2rem; border-left:5px solid var(--accent); padding-left:.6rem; margin-bottom:1rem}
+
+  /* 課程卡 */
+  .cards{display:grid; grid-template-columns:1fr; gap:1rem}
+  @media (min-width:600px){
+    .cards{grid-template-columns:1fr 1fr}
+  }
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    padding:1.2rem 1.3rem; box-shadow:var(--shadow); display:flex; flex-direction:column}
+  .card .tag{display:inline-block; font-size:.78rem; font-weight:800; letter-spacing:.06em;
+    color:var(--accent); background:var(--accent-soft); padding:.25rem .6rem; border-radius:999px;
+    margin-bottom:.6rem; align-self:flex-start}
+  .card h3{font-size:1.15rem; margin:0 0 .3rem}
+  .card .meta{color:var(--text-dim); font-size:.92rem; margin-bottom:.7rem}
+  .card ul{margin:.3rem 0 .9rem; padding-left:1.2rem; font-size:.95rem}
+  .card .fit{font-size:.9rem; color:var(--text-dim); margin-bottom:1rem}
+  .card .spacer{flex:1}
+  .btn{
+    display:block; text-align:center; text-decoration:none;
+    background:var(--accent); color:#fff; font-weight:700; font-size:1.05rem;
+    border-radius:10px; padding:.85rem 1rem; min-height:44px;
+    line-height:1.3;
+  }
+  .btn:active{filter:brightness(.95)}
+  .order-note{text-align:center; color:var(--text-dim); font-size:.95rem; margin-top:1rem}
+
+  /* 步驟 */
+  ol.steps{list-style:none; margin:0; padding:0; counter-reset:step}
+  ol.steps li{counter-increment:step; display:flex; gap:.8rem; align-items:flex-start;
+    padding:.7rem 0; border-bottom:1px solid var(--line)}
+  ol.steps li:last-child{border-bottom:none}
+  ol.steps li::before{
+    content:counter(step); flex:none; width:2rem; height:2rem; border-radius:50%;
+    background:var(--accent-soft); color:var(--accent); font-weight:800;
+    display:flex; align-items:center; justify-content:center; font-size:.95rem;
+  }
+  ol.steps li span{padding-top:.2rem}
+
+  /* 小撇步 */
+  .tips{display:flex; flex-direction:column; gap:.8rem}
+  .tip{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    padding:.9rem 1.05rem; box-shadow:var(--shadow)}
+  .tip .head{display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; margin-bottom:.3rem}
+  .tip .head strong{font-size:1rem}
+  .pill{display:inline-block; font-size:.75rem; font-weight:700; padding:.15rem .55rem;
+    border-radius:999px; background:var(--ok-soft); color:var(--ok); white-space:nowrap}
+  .pill.both{background:var(--accent-soft); color:var(--accent)}
+  .tip p{margin:.3rem 0 0; font-size:.94rem; color:var(--text-dim)}
+
+  /* 提示框 */
+  .box{border-left:4px solid var(--line); background:var(--surface-2);
+    padding:.9rem 1.05rem; border-radius:0 12px 12px 0; margin:1rem 0}
+  .box strong.h{display:block; margin-bottom:.35rem; font-size:1rem; color:var(--text)}
+  .box.warn{border-color:var(--warn); background:var(--warn-soft)}
+  .box.danger{border-color:var(--danger); background:var(--danger-soft)}
+  .box p{margin:.4rem 0}
+  .box p:first-child{margin-top:0}
+  .box p:last-child{margin-bottom:0}
+
+  footer.end{text-align:center; color:var(--text-faint); font-size:.85rem; margin-top:2.5rem}
+
+  /* ---------- 列印 ---------- */
+  @media print{
+    body{background:#fff; color:#000}
+    .wrap{max-width:none; padding:0 8px}
+    .btn{background:none !important; color:#000 !important; border:1px solid #000;
+      box-shadow:none !important}
+    .card, .tip, .box{box-shadow:none !important; border:1px solid #999 !important;
+      background:#fff !important}
+    .pill{border:1px solid #999; background:#fff !important; color:#000 !important}
+    section > h2{border-left-color:#000}
+    a{color:#000; text-decoration:underline}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <h1>投資闖關課・家人上手說明</h1>
+    <p class="lede">兩門用手機就能玩的投資闖關課，教你「看懂」，不推薦任何一檔股票。</p>
+  </header>
+
+  <section>
+    <h2>選一門開始</h2>
+    <div class="cards">
+
+      <div class="card">
+        <span class="tag">第 1 門</span>
+        <h3>投資入門闖關課</h3>
+        <p class="meta">12 關・約 60 分鐘</p>
+        <p><strong>學什麼：</strong></p>
+        <ul>
+          <li>緊急預備金</li>
+          <li>ETF 是什麼</li>
+          <li>股債比</li>
+          <li>費用</li>
+          <li>詐騙辨識</li>
+        </ul>
+        <p class="fit"><strong>適合：</strong>想開始投資的大人。</p>
+        <div class="spacer"></div>
+        <a class="btn" href="rumen.html">開始第 1 門 →</a>
+      </div>
+
+      <div class="card">
+        <span class="tag">第 2 門</span>
+        <h3>台灣 AI 供應鏈闖關課</h3>
+        <p class="meta">14 關・約 107 分鐘</p>
+        <p><strong>學什麼：</strong></p>
+        <ul>
+          <li>AI 產業鏈</li>
+          <li>台灣 150 家 AI 公司</li>
+          <li>ROE、本益比</li>
+          <li>怎麼自己判斷「AI 概念股」</li>
+        </ul>
+        <p class="fit"><strong>適合：</strong>用國小程度寫的，小朋友可以直接從這門開始。</p>
+        <div class="spacer"></div>
+        <a class="btn" href="ai.html">開始第 2 門 →</a>
+      </div>
+
+    </div>
+    <p class="order-note">建議順序：大人先玩第 1 門再玩第 2 門；小朋友可以直接玩第 2 門。</p>
+  </section>
+
+  <section>
+    <h2>怎麼玩</h2>
+    <ol class="steps">
+      <li><span>按上面的按鈕，打開課程。</span></li>
+      <li><span>從第 1 關往下讀，每關最後有「過關測驗」，全部答對才算過關（答錯會告訴你為什麼）。</span></li>
+      <li><span>目錄會打勾（電腦在左邊，手機在最上面），看得到自己過了幾關。</span></li>
+      <li><span>一天玩一兩關就好，下次打開會記得進度。</span></li>
+      <li><span>全部走完，可以看最後的「常見問答＋迷思」。</span></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>小撇步</h2>
+    <div class="tips">
+
+      <div class="tip">
+        <div class="head"><strong>字太小</strong><span class="pill">第 2 門</span></div>
+        <p>第 2 門右上角有「Aa 字級」按鈕，可以切換小／中／大；兩門課都可以用手機的兩指放大畫面。</p>
+      </div>
+
+      <div class="tip">
+        <div class="head"><strong>看不懂的詞</strong><span class="pill">第 2 門</span></div>
+        <p>第 2 門裡有虛線底線的詞，點一下就有解釋；右上角「📖 字典」可以查全部的詞。</p>
+      </div>
+
+      <div class="tip">
+        <div class="head"><strong>答錯沒關係</strong><span class="pill">第 2 門</span></div>
+        <p>第 2 門答錯的題目會收進「錯題複習」，隔 1、3、7 天再考一次，幫你記牢。</p>
+      </div>
+
+      <div class="tip">
+        <div class="head"><strong>太亮或太暗</strong><span class="pill both">兩門都有</span></div>
+        <p>右上角都有「🌗 外觀」按鈕，可以切換深色／淺色畫面。</p>
+      </div>
+
+      <div class="tip">
+        <div class="head"><strong>想自己查真的資料</strong><span class="pill both">兩門都有</span></div>
+        <p>第 1 門第 3 關、第 2 門第 10、11 關裡有「🔎 自己查一次」，教你去證交所、公開資訊觀測站等官方網站查真實資料。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2>進度存在哪裡？</h2>
+    <div class="box">
+      <p>進度存在「這支手機（或這台電腦）」的瀏覽器裡，不會上傳到任何地方。</p>
+      <p>換手機、換瀏覽器、或清除瀏覽資料，進度就會不見。</p>
+      <p>同一台裝置給兩個人用，進度會混在一起。可以按右上角「↺ 重來」清掉重新開始——第 2 門按兩次才會確認清除；第 1 門按下去會先跳出確認視窗，問你是不是真的要清掉。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>用 iPhone 的家人</h2>
+    <p>如果收到的是檔案、點開後按鈕沒反應，請改用家人給你的網址打開。</p>
+  </section>
+
+  <div class="box danger">
+    <strong class="h">提醒</strong>
+    <p>這是投資教育教材，不是投資建議，也不推薦任何商品。裡面的數字會隨收盤變動。有問題可以問介紹你來的家人。</p>
+    <p>這個網頁不會被搜尋引擎收錄，但拿到網址的人都看得到，請不要轉傳給不認識的人。</p>
+  </div>
+
+  <footer class="end">投資闖關課・家人上手說明</footer>
+
+</div>
+</body>
+</html>
